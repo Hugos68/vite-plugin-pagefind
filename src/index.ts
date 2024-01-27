@@ -9,15 +9,18 @@ function log(input: string) {
 }
 
 type PagefindConfig = {
-	buildDir: string;
 	pagefindDir: string;
+	buildDir?: string;
+	cwd?: string;
 };
 
-export default function ({ buildDir, pagefindDir }: PagefindConfig) {
-	const __dirname = dirname(fileURLToPath(import.meta.url));
-
-	buildDir = join(__dirname, 'build');
-	pagefindDir = join(__dirname, pagefindDir);
+export default function ({
+	pagefindDir,
+	buildDir = 'build',
+	cwd = process.cwd()
+}: PagefindConfig) {
+	pagefindDir = join(cwd, pagefindDir);
+	buildDir = join(cwd, 'build');
 
 	function configureServer() {
 		if (!existsSync(pagefindDir)) {
