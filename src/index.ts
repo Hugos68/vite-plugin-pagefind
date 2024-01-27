@@ -1,4 +1,4 @@
-import type { PluginOption } from 'vite';
+import type { PluginOption, ResolvedConfig } from 'vite';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
@@ -25,7 +25,6 @@ function pagefindDev({
 }: PagefindDevConfig): PluginOption {
 	return {
 		name: 'pagefind-dev',
-		enforce: 'pre',
 		apply: 'serve',
 		configureServer() {
 			if (!existsSync(pagefindDir)) {
@@ -47,11 +46,17 @@ function pagefindDev({
 }
 
 function pagefindBuild({ siteDir, cwd }: PagefindBuildConfig): PluginOption {
+	let config: ResolvedConfig | null = null;
 	return {
 		name: 'pagefind-build',
-		enforce: 'post',
 		apply: 'build',
+		configResolved(_config: ResolvedConfig) {
+			config = _config;
+		},
 		closeBundle() {
+			if (!config?.build.ssr) {
+				return;
+			}
 			log('Running pagefind...');
 			execSync(`pagefind --site "${siteDir}"`, { cwd });
 			log('Pagefind complete.');

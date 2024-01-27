@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 9bdcc49: Fixed pagefind post build not running after the build process
+-   9bdcc49: Fixed pagefind post build not running after the build process
 
 ## 0.0.6
 
