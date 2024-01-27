@@ -19,7 +19,7 @@ export default function ({
 	cwd = process.cwd()
 }: PagefindConfig) {
 	pagefindDir = join(cwd, pagefindDir);
-	buildDir = join(cwd, 'build');
+	buildDir = join(cwd, buildDir);
 
 	function configureServer() {
 		if (!existsSync(pagefindDir)) {
