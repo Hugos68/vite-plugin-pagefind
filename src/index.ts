@@ -46,6 +46,8 @@ export function pagefind({
 
 	return {
 		name: 'pagefind',
+		enforce: 'post',
+		apply: 'build',
 		configureServer,
 		closeBundle
 	};

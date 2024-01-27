@@ -19,8 +19,8 @@
 		"dist"
 	],
 	"scripts": {
-		"dev": "tsup src/index.ts --format esm --dts --out-dir dist --watch",
-		"build": "tsup src/index.ts --format esm --dts --out-dir dist",
+		"dev": "tsc -w",
+		"build": "tsc",
 		"format": "prettier --write .",
 		"release": "pnpm build && changeset publish"
 	},
@@ -28,7 +28,6 @@
 		"@changesets/cli": "^2.27.1",
 		"@types/node": "^20.11.8",
 		"prettier": "3.2.4",
-		"tsup": "^8.0.1",
 		"typescript": "^5.3.3"
 	},
 	"dependencies": {
