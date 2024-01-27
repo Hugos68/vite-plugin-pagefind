@@ -1,0 +1,61 @@
+lockfileVersion: '6.0'
+
+settings:
+    autoInstallPeers: true
+    excludeLinksFromLockfile: false
+
+devDependencies:
+    '@types/node':
+        specifier: ^20.11.8
+        version: 20.11.8
+    colorette:
+        specifier: ^2.0.20
+        version: 2.0.20
+    prettier:
+        specifier: 3.2.4
+        version: 3.2.4
+    typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+
+packages:
+    /@types/node@20.11.8:
+        resolution:
+            {
+                integrity: sha512-i7omyekpPTNdv4Jb/Rgqg0RU8YqLcNsI12quKSDkRXNfx7Wxdm6HhK1awT3xTgEkgxPn3bvnSpiEAc7a7Lpyow==
+            }
+        dependencies:
+            undici-types: 5.26.5
+        dev: true
+
+    /colorette@2.0.20:
+        resolution:
+            {
+                integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==
+            }
+        dev: true
+
+    /prettier@3.2.4:
+        resolution:
+            {
+                integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==
+            }
+        engines: { node: '>=14' }
+        hasBin: true
+        dev: true
+
+    /typescript@5.3.3:
+        resolution:
+            {
+                integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==
+            }
+        engines: { node: '>=14.17' }
+        hasBin: true
+        dev: true
+
+    /undici-types@5.26.5:
+        resolution:
+            {
+                integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
+            }
+        dev: true

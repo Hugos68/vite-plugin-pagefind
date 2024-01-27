@@ -1,0 +1,32 @@
+{
+	"name": "vite-plugin-pagefind",
+	"description": "Plugin for easily integrating pagefind into vite projects",
+	"version": "0.0.1",
+	"author": {
+		"name": "Hugo Korte",
+		"email": "hugokorteapple@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git"
+	},
+	"license": "MIT",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "tsc -w",
+		"build": "tsc",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.8",
+		"colorette": "^2.0.20",
+		"prettier": "3.2.4",
+		"typescript": "^5.3.3"
+	},
+	"type": "module",
+	"keywords": [
+		"vite",
+		"vite-plugin",
+		"pagefind"
+	]
+}
