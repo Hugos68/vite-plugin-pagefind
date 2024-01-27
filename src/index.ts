@@ -27,12 +27,13 @@ export default function ({
 			log('Pagefind not found.');
 			if (!existsSync(join(buildDir, 'pagefind'))) {
 				log('Build not found, building...');
-				execSync('vite build');
+				execSync('vite build', { cwd });
 				log('Build complete.');
 			}
 			log('Running pagefind...');
 			execSync(
-				`pagefind --site ${buildDir} --output-path ${pagefindDir}`
+				`pagefind --site "${buildDir}" --output-path "${pagefindDir}"`,
+				{ cwd }
 			);
 			log('Pagefind complete.');
 		}
@@ -40,7 +41,7 @@ export default function ({
 
 	function closeBundle() {
 		log('Running pagefind...');
-		execSync(`pagefind --site ${buildDir}`);
+		execSync(`pagefind --site "${buildDir}"`);
 		log('Pagefind complete.');
 	}
 
