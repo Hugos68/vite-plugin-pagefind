@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.0.3
+
+### Patch Changes
+
+- 2f8a075: Only packaging dist files now
+
 ## 0.0.2
 
 ### Patch Changes
