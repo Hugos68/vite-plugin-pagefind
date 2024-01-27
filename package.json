@@ -8,7 +8,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git"
+		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
 	"publishConfig": {
 		"access": "public"
