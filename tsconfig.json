@@ -2,8 +2,10 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"declaration": true,
-		"declarationMap": true
+		"declarationMap": true,
+		"skipLibCheck": true
 	},
 	"include": ["./src/index.ts"]
 }
