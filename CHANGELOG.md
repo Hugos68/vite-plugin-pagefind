@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.0.7
+
+### Patch Changes
+
+- 9bdcc49: Fixed pagefind post build not running after the build process
+
 ## 0.0.6
 
 ### Patch Changes
