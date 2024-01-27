@@ -7,13 +7,13 @@ function log(input: string) {
 	console.log(`${green('[vite-plugin-pagefind]')} ${input}`);
 }
 
-type PagefindConfig = {
+export type PagefindConfig = {
 	pagefindDir: string;
 	buildDir?: string;
 	cwd?: string;
 };
 
-export default function ({
+export function pagefind({
 	pagefindDir,
 	buildDir = 'build',
 	cwd = process.cwd()

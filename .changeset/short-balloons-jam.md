@@ -1,5 +1,5 @@
 ---
-"vite-plugin-pagefind": patch
+'vite-plugin-pagefind': patch
 ---
 
 Fixed hardcoded buildDir

@@ -19,8 +19,8 @@
 		"dist"
 	],
 	"scripts": {
-		"dev": "tsup src/index.ts --format esm --dts-resolve --dts --watch",
-		"build": "tsup src/index.ts --format esm --dts-resolve --dts --minify --out-dir dist",
+		"dev": "tsup src/index.ts --format esm --dts --out-dir dist --watch",
+		"build": "tsup src/index.ts --format esm --dts --out-dir dist",
 		"format": "prettier --write .",
 		"release": "pnpm build && changeset publish"
 	},
