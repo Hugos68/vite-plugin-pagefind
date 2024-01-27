@@ -19,17 +19,20 @@
 		"dist"
 	],
 	"scripts": {
-		"dev": "tsc -w",
-		"build": "tsc",
+		"dev": "tsup src/index.ts --format esm --dts-resolve --dts --watch",
+		"build": "tsup src/index.ts --format esm --dts-resolve --dts --minify --out-dir dist",
 		"format": "prettier --write .",
 		"release": "pnpm build && changeset publish"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.1",
 		"@types/node": "^20.11.8",
-		"colorette": "^2.0.20",
 		"prettier": "3.2.4",
+		"tsup": "^8.0.1",
 		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"colorette": "^2.0.20"
 	},
 	"type": "module",
 	"keywords": [
