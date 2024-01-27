@@ -10,6 +10,9 @@
 		"type": "git",
 		"url": "git"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"license": "MIT",
 	"main": "dist/index.js",
 	"scripts": {
