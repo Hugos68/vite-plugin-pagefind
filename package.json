@@ -16,7 +16,7 @@
 		"dev": "tsc -w",
 		"build": "tsc",
 		"format": "prettier --write .",
-		"release": "pnpm build && changesets publish"
+		"release": "pnpm build && changeset publish"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.1",
