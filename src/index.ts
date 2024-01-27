@@ -1,3 +1,4 @@
+import type { PluginOption } from 'vite';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
@@ -9,46 +10,64 @@ function log(input: string) {
 
 export type PagefindConfig = {
 	pagefindDir: string;
-	buildDir?: string;
+	siteDir: string;
 	cwd?: string;
 };
 
-export function pagefind({
+type PagefindDevConfig = Required<PagefindConfig>;
+
+type PagefindBuildConfig = Omit<Required<PagefindConfig>, 'pagefindDir'>;
+
+function pagefindDev({
 	pagefindDir,
-	buildDir = 'build',
-	cwd = process.cwd()
-}: PagefindConfig) {
-	pagefindDir = join(cwd, pagefindDir);
-	buildDir = join(cwd, buildDir);
-
-	function configureServer() {
-		if (!existsSync(pagefindDir)) {
-			log('Pagefind not found.');
-			if (!existsSync(join(buildDir, 'pagefind'))) {
-				log('Build not found, building...');
-				execSync('vite build', { cwd });
-				log('Build complete.');
-			}
-			log('Running pagefind...');
-			execSync(
-				`pagefind --site "${buildDir}" --output-path "${pagefindDir}"`,
-				{ cwd }
-			);
-			log('Pagefind complete.');
-		}
-	}
-
-	function closeBundle() {
-		log('Running pagefind...');
-		execSync(`pagefind --site "${buildDir}"`);
-		log('Pagefind complete.');
-	}
-
+	siteDir,
+	cwd
+}: PagefindDevConfig): PluginOption {
 	return {
-		name: 'pagefind',
+		name: 'pagefind-dev',
+		enforce: 'pre',
+		apply: 'serve',
+		configureServer() {
+			if (!existsSync(pagefindDir)) {
+				log('Pagefind not found.');
+				if (!existsSync(join(siteDir, 'pagefind'))) {
+					log('Build not found, building...');
+					execSync('vite build', { cwd });
+					log('Build complete.');
+				}
+				log('Running pagefind...');
+				execSync(
+					`pagefind --site "${siteDir}" --output-path "${pagefindDir}"`,
+					{ cwd }
+				);
+				log('Pagefind complete.');
+			}
+		}
+	};
+}
+
+function pagefindBuild({ siteDir, cwd }: PagefindBuildConfig): PluginOption {
+	return {
+		name: 'pagefind-build',
 		enforce: 'post',
 		apply: 'build',
-		configureServer,
-		closeBundle
+		closeBundle() {
+			log('Running pagefind...');
+			execSync(`pagefind --site "${siteDir}"`, { cwd });
+			log('Pagefind complete.');
+		}
 	};
+}
+
+export function pagefind({
+	pagefindDir,
+	siteDir = 'build',
+	cwd = process.cwd()
+}: PagefindConfig): PluginOption {
+	pagefindDir = join(cwd, pagefindDir);
+	siteDir = join(cwd, siteDir);
+	return [
+		pagefindDev({ pagefindDir, siteDir, cwd }),
+		pagefindBuild({ siteDir, cwd })
+	];
 }
