@@ -1,5 +1,12 @@
 # vite-plugin-pagefind
 
+## 0.0.10
+
+### Patch Changes
+
+- cf9d8a7: Forced buildDir to be present
+- 9f91f77: Fixed buildDir being optional type
+
 ## 0.0.9
 
 ### Patch Changes
