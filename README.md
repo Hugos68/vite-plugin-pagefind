@@ -1,6 +1,6 @@
 # vite-plugin-pagefind
 
-A Vite plugin for easily integrating pagefind into vite projects.
+A Vite plugin for easily integrating pagefind into Vite based projects.
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ pnpm add -D vite-plugin-pagefind
 
 ## Usage
 
-Add the plugin to your vite config:
+Add the plugin to your `vite.config.ts`:
 
 ```ts
 import { defineConfig } from 'vite';
@@ -24,8 +24,7 @@ import { pagefind, type PagefindConfig } from 'vite-plugin-pagefind';
 
 const pagefindConfig: PagefindConfig = {
 	appDir: '...',
-	buildDir: '...',
-	cwd: '...'
+	buildDir: '...'
 };
 
 export default defineConfig({
@@ -36,35 +35,28 @@ export default defineConfig({
 
 ## Config
 
-### appDir
+### publicDir
 
-Provide a directory where you want pagefind to be placed during development.
+Provide the directory where your static assets live.
 
-Example: `appDir: 'static'` results in: `static/pagefind/pagefind.js`
-
-_Default_: -
+Example: `publicDir: 'static'` results in: `static/pagefind/pagefind.js`
 
 ### buildDir
 
-Provide a directory where you want pagefind to run after your app has been build.
+Provide the directory where your build output lives.
 
 Example: `buildDir: 'public'` results in: `public/pagefind/pagefind.js`
 
-_Default_: -
-
-### cwd
-
-Optionally provide a directory where the plugin should run from.
-
-_Default_: `process.cwd()`
-
 ## Features
 
-### What this plugin does do
-
--   Ensures pagefind is ran on your build output after building.
 -   Ensures pagefind is present during development.
+-   Ensures pagefind after building your app.
+-   Ensures pagefind can be safely used through dynamic imports.
 
-### What this plugin doesn't do
+## Pagefind
 
--   Provide a way to use pagefind in your code.
+For further questions regarding Pagefind itself you can refer to [the offical docs](https://pagefind.app/).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

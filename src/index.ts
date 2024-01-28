@@ -2,27 +2,26 @@ import type { PluginOption, ResolvedConfig } from 'vite';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
-import { cyan } from 'colorette';
+import { blue, bold } from 'colorette';
 import * as pagefind from 'pagefind';
 
 export type PagefindConfig = {
-	appDir: string;
+	publicDir: string;
 	buildDir: string;
-	cwd?: string;
 };
 
 type PagefindDevConfig = Required<PagefindConfig>;
-
 type PagefindBuildConfig = Pick<PagefindConfig, 'buildDir'>;
 
 function log(input: string) {
-	console.log(`${cyan('[vite-plugin-pagefind]')} ${input}`);
+	console.log(
+		`${blue('[')}${blue('vite-plugin-pagefind')}${blue(']')} ${bold(input)}`
+	);
 }
 
-function pagefindDev({
-	appDir,
-	buildDir,
-	cwd
+function pagefindDevPlugin({
+	publicDir,
+	buildDir
 }: PagefindDevConfig): PluginOption {
 	return {
 		name: 'pagefind-dev',
@@ -34,11 +33,11 @@ function pagefindDev({
 			};
 		},
 		async configureServer() {
-			if (!existsSync(appDir)) {
+			if (!existsSync(publicDir)) {
 				log('Pagefind not found.');
 				if (!existsSync(join(buildDir, 'pagefind'))) {
 					log('Build not found, building...');
-					execSync('vite build', { cwd });
+					execSync('vite build');
 					log('Build complete.');
 				}
 				log('Running pagefind...');
@@ -47,7 +46,7 @@ function pagefindDev({
 					path: buildDir
 				});
 				await index.writeFiles({
-					outputPath: join(appDir, 'pagefind')
+					outputPath: join(publicDir, 'pagefind')
 				});
 				log('Pagefind complete.');
 			}
@@ -55,7 +54,7 @@ function pagefindDev({
 	};
 }
 
-function pagefindBuild({ buildDir }: PagefindBuildConfig): PluginOption {
+function pagefindBuildPlugin({ buildDir }: PagefindBuildConfig): PluginOption {
 	let config: ResolvedConfig | null = null;
 	return {
 		name: 'pagefind-build',
@@ -91,17 +90,13 @@ function pagefindBuild({ buildDir }: PagefindBuildConfig): PluginOption {
 	};
 }
 
-function pluginPagefind({
-	appDir,
-	buildDir,
-	cwd = process.cwd()
-}: PagefindConfig): PluginOption {
-	appDir = join(cwd, appDir, 'pagefind');
-	buildDir = join(cwd, buildDir);
+function pagefindPlugin({ publicDir, buildDir }: PagefindConfig): PluginOption {
+	publicDir = join(process.cwd(), publicDir, 'pagefind');
+	buildDir = join(process.cwd(), buildDir);
 	return [
-		pagefindDev({ appDir, buildDir, cwd }),
-		pagefindBuild({ buildDir })
+		pagefindDevPlugin({ publicDir, buildDir }),
+		pagefindBuildPlugin({ buildDir })
 	];
 }
 
-export { pluginPagefind as pagefind };
+export { pagefindPlugin as pagefind };
