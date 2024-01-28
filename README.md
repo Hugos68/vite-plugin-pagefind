@@ -4,7 +4,7 @@ A Vite plugin for easily integrating pagefind into vite projects.
 
 ## Prerequisites
 
-- Ensure pagefind is installed for your project.
+- Ensure [Pagefind](https://github.com/CloudCannon/pagefind) is installed.
 
 ## Installation
 
