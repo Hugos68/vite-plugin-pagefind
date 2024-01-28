@@ -10,7 +10,7 @@ function log(input: string) {
 
 export type PagefindConfig = {
 	appDir: string;
-	buildDir?: string;
+	buildDir: string;
 	cwd?: string;
 };
 
@@ -66,7 +66,7 @@ function pagefindBuild({ buildDir, cwd }: PagefindBuildConfig): PluginOption {
 
 export function pagefind({
 	appDir,
-	buildDir = 'build',
+	buildDir,
 	cwd = process.cwd()
 }: PagefindConfig): PluginOption {
 	appDir = join(cwd, appDir, 'pagefind');

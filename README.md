@@ -46,11 +46,11 @@ _Default_: -
 
 ### buildDir
 
-Optionally provide a directory where you want pagefind to run after your app has been build.
+Provide a directory where you want pagefind to run after your app has been build.
 
 Example: `buildDir: 'public'` results in: `public/pagefind/pagefind.js`
 
-_Default_: "build"
+_Default_: -
 
 ### cwd
 
