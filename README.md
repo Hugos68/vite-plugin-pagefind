@@ -23,7 +23,7 @@ import { defineConfig } from 'vite';
 import { pagefind, type PagefindConfig } from 'vite-plugin-pagefind';
 
 const pagefindConfig: PagefindConfig = {
-	appDir: '...',
+	publicDir: '...',
 	buildDir: '...'
 };
 
