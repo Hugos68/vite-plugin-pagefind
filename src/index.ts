@@ -10,7 +10,7 @@ function log(input: string) {
 
 export type PagefindConfig = {
 	appDir: string;
-	buildDir: string;
+	buildDir?: string;
 	cwd?: string;
 };
 
