@@ -9,34 +9,34 @@ function log(input: string) {
 }
 
 export type PagefindConfig = {
-	pagefindDir: string;
-	siteDir: string;
+	appDir: string;
+	buildDir: string;
 	cwd?: string;
 };
 
 type PagefindDevConfig = Required<PagefindConfig>;
 
-type PagefindBuildConfig = Omit<Required<PagefindConfig>, 'pagefindDir'>;
+type PagefindBuildConfig = Omit<Required<PagefindConfig>, 'appDir'>;
 
 function pagefindDev({
-	pagefindDir,
-	siteDir,
+	appDir,
+	buildDir,
 	cwd
 }: PagefindDevConfig): PluginOption {
 	return {
 		name: 'pagefind-dev',
 		apply: 'serve',
 		configureServer() {
-			if (!existsSync(pagefindDir)) {
+			if (!existsSync(appDir)) {
 				log('Pagefind not found.');
-				if (!existsSync(join(siteDir, 'pagefind'))) {
+				if (!existsSync(join(buildDir, 'pagefind'))) {
 					log('Build not found, building...');
 					execSync('vite build', { cwd });
 					log('Build complete.');
 				}
 				log('Running pagefind...');
 				execSync(
-					`pagefind --site "${siteDir}" --output-path "${pagefindDir}"`,
+					`pagefind --site "${buildDir}" --output-path "${appDir}"`,
 					{ cwd }
 				);
 				log('Pagefind complete.');
@@ -45,7 +45,7 @@ function pagefindDev({
 	};
 }
 
-function pagefindBuild({ siteDir, cwd }: PagefindBuildConfig): PluginOption {
+function pagefindBuild({ buildDir, cwd }: PagefindBuildConfig): PluginOption {
 	let config: ResolvedConfig | null = null;
 	return {
 		name: 'pagefind-build',
@@ -58,21 +58,21 @@ function pagefindBuild({ siteDir, cwd }: PagefindBuildConfig): PluginOption {
 				return;
 			}
 			log('Running pagefind...');
-			execSync(`pagefind --site "${siteDir}"`, { cwd });
+			execSync(`pagefind --site "${buildDir}"`, { cwd });
 			log('Pagefind complete.');
 		}
 	};
 }
 
 export function pagefind({
-	pagefindDir,
-	siteDir = 'build',
+	appDir,
+	buildDir = 'build',
 	cwd = process.cwd()
 }: PagefindConfig): PluginOption {
-	pagefindDir = join(cwd, pagefindDir);
-	siteDir = join(cwd, siteDir);
+	appDir = join(cwd, appDir, 'pagefind');
+	buildDir = join(cwd, buildDir);
 	return [
-		pagefindDev({ pagefindDir, siteDir, cwd }),
-		pagefindBuild({ siteDir, cwd })
+		pagefindDev({ appDir, buildDir, cwd }),
+		pagefindBuild({ buildDir, cwd })
 	];
 }
