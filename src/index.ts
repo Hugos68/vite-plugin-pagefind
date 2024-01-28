@@ -2,11 +2,8 @@ import type { PluginOption, ResolvedConfig } from 'vite';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
-import { green } from 'colorette';
-
-function log(input: string) {
-	console.log(`${green('[vite-plugin-pagefind]')} ${input}`);
-}
+import { cyan } from 'colorette';
+import * as pagefind from 'pagefind';
 
 export type PagefindConfig = {
 	appDir: string;
@@ -16,7 +13,11 @@ export type PagefindConfig = {
 
 type PagefindDevConfig = Required<PagefindConfig>;
 
-type PagefindBuildConfig = Omit<Required<PagefindConfig>, 'appDir'>;
+type PagefindBuildConfig = Pick<PagefindConfig, 'buildDir'>;
+
+function log(input: string) {
+	console.log(`${cyan('[vite-plugin-pagefind]')} ${input}`);
+}
 
 function pagefindDev({
 	appDir,
@@ -26,7 +27,13 @@ function pagefindDev({
 	return {
 		name: 'pagefind-dev',
 		apply: 'serve',
-		configureServer() {
+		enforce: 'pre',
+		config() {
+			return {
+				assetsInclude: '**/pagefind.js'
+			};
+		},
+		async configureServer() {
 			if (!existsSync(appDir)) {
 				log('Pagefind not found.');
 				if (!existsSync(join(buildDir, 'pagefind'))) {
@@ -35,36 +42,56 @@ function pagefindDev({
 					log('Build complete.');
 				}
 				log('Running pagefind...');
-				execSync(
-					`pagefind --site "${buildDir}" --output-path "${appDir}"`,
-					{ cwd }
-				);
+				const { index } = await pagefind.createIndex({});
+				await index.addDirectory({
+					path: buildDir
+				});
+				await index.writeFiles({
+					outputPath: join(appDir, 'pagefind')
+				});
 				log('Pagefind complete.');
 			}
 		}
 	};
 }
 
-function pagefindBuild({ buildDir, cwd }: PagefindBuildConfig): PluginOption {
+function pagefindBuild({ buildDir }: PagefindBuildConfig): PluginOption {
 	let config: ResolvedConfig | null = null;
 	return {
 		name: 'pagefind-build',
 		apply: 'build',
+		enforce: 'post',
+		config() {
+			return {
+				build: {
+					rollupOptions: {
+						external: '/pagefind/pagefind.js'
+					}
+				}
+			};
+		},
 		configResolved(_config: ResolvedConfig) {
 			config = _config;
 		},
-		closeBundle() {
+		async closeBundle() {
+			console.log('called!');
 			if (!config?.build.ssr) {
 				return;
 			}
 			log('Running pagefind...');
-			execSync(`pagefind --site "${buildDir}"`, { cwd });
+			const { index } = await pagefind.createIndex({});
+			await index.addDirectory({
+				path: buildDir
+			});
+			await index.writeFiles({
+				outputPath: join(buildDir, 'pagefind')
+			});
 			log('Pagefind complete.');
 		}
 	};
 }
 
-export function pagefind({
+function pluginPagefind({
 	appDir,
 	buildDir,
 	cwd = process.cwd()
@@ -73,6 +100,8 @@ export function pagefind({
 	buildDir = join(cwd, buildDir);
 	return [
 		pagefindDev({ appDir, buildDir, cwd }),
-		pagefindBuild({ buildDir, cwd })
+		pagefindBuild({ buildDir })
 	];
 }
+
+export { pluginPagefind as pagefind };

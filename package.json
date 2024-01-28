@@ -32,7 +32,8 @@
 		"vite": "^5.0.12"
 	},
 	"dependencies": {
-		"colorette": "^2.0.20"
+		"colorette": "^2.0.20",
+		"pagefind": "^1.0.4"
 	},
 	"type": "module",
 	"keywords": [
