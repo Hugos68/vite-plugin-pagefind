@@ -53,7 +53,7 @@ Example: `buildDir: 'public'` results in: `public/pagefind/pagefind.js`
 
 Every framework implements their build and dev process slightly different, this is why there is an [examples folder](examples/) to demonstrate usage in a specific framework:
 
--   ### [sveltekit](examples/sveltekit/)
+-   [SvelteKit](examples/sveltekit/)
 
 Don't see your framework? Consider adding it through a contribution!
 
