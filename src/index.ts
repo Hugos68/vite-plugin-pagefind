@@ -5,13 +5,13 @@ import { execSync } from 'child_process';
 import { blue, bold } from 'colorette';
 import * as pagefind from 'pagefind';
 
-export type PagefindConfig = {
+type PagefindPluginConfig = {
 	publicDir: string;
 	buildDir: string;
 };
 
-type PagefindDevConfig = Required<PagefindConfig>;
-type PagefindBuildConfig = Pick<PagefindConfig, 'buildDir'>;
+type PagefindDevPluginConfig = Required<PagefindPluginConfig>;
+type PagefindBuildPluginConfig = Pick<PagefindPluginConfig, 'buildDir'>;
 
 function log(input: string) {
 	console.log(`${blue('[vite-plugin-pagefind]')} ${bold(input)}`);
@@ -20,14 +20,19 @@ function log(input: string) {
 function pagefindDevPlugin({
 	publicDir,
 	buildDir
-}: PagefindDevConfig): PluginOption {
+}: PagefindDevPluginConfig): PluginOption {
 	return {
 		name: 'pagefind-dev',
 		apply: 'serve',
 		enforce: 'pre',
 		config() {
 			return {
-				assetsInclude: '**/pagefind.js'
+				assetsInclude: '**/pagefind.js',
+				build: {
+					rollupOptions: {
+						external: '/pagefind/pagefind.js'
+					}
+				}
 			};
 		},
 		async configureServer() {
@@ -53,7 +58,9 @@ function pagefindDevPlugin({
 	};
 }
 
-function pagefindBuildPlugin({ buildDir }: PagefindBuildConfig): PluginOption {
+function pagefindBuildPlugin({
+	buildDir
+}: PagefindBuildPluginConfig): PluginOption {
 	let config: ResolvedConfig | null = null;
 	return {
 		name: 'pagefind-build',
@@ -89,7 +96,10 @@ function pagefindBuildPlugin({ buildDir }: PagefindBuildConfig): PluginOption {
 	};
 }
 
-function pagefindPlugin({ publicDir, buildDir }: PagefindConfig): PluginOption {
+function pagefindPlugin({
+	publicDir,
+	buildDir
+}: PagefindPluginConfig): PluginOption {
 	publicDir = join(process.cwd(), publicDir);
 	buildDir = join(process.cwd(), buildDir);
 	return [
@@ -98,4 +108,4 @@ function pagefindPlugin({ publicDir, buildDir }: PagefindConfig): PluginOption {
 	];
 }
 
-export { pagefindPlugin as pagefind };
+export { pagefindPlugin as pagefind, PagefindPluginConfig as PagefindConfig };
