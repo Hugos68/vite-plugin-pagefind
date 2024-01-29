@@ -114,7 +114,7 @@ function pagefindPlugin({
 	publicDir = 'public',
 	buildDir = 'dist',
 	buildScript = 'build'
-}: PagefindPluginConfig): PluginOption {
+}: PagefindPluginConfig = {}): PluginOption {
 	publicDir = join(process.cwd(), publicDir);
 	buildDir = join(process.cwd(), buildDir);
 	return [

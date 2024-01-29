@@ -31,8 +31,7 @@ const pagefindConfig: PagefindConfig = {
 };
 
 export default defineConfig({
-	// Config...
-	plugins: [, /* Plugins.. */ pagefind(pagefindConfig)]
+	plugins: [pagefind(pagefindConfig)]
 });
 ```
 
