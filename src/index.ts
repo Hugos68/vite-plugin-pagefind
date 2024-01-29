@@ -31,7 +31,7 @@ function pagefindDevPlugin({
 			};
 		},
 		async configureServer() {
-			if (!existsSync(publicDir)) {
+			if (!existsSync(join(publicDir, 'pagefind'))) {
 				log('Pagefind not found.');
 				if (!existsSync(join(buildDir, 'pagefind'))) {
 					log('Build not found, building...');
@@ -46,6 +46,7 @@ function pagefindDevPlugin({
 				await index.writeFiles({
 					outputPath: join(publicDir, 'pagefind')
 				});
+				await pagefind.close();
 				log('Pagefind complete.');
 			}
 		}
@@ -82,13 +83,14 @@ function pagefindBuildPlugin({ buildDir }: PagefindBuildConfig): PluginOption {
 			await index.writeFiles({
 				outputPath: join(buildDir, 'pagefind')
 			});
+			await pagefind.close();
 			log('Pagefind complete.');
 		}
 	};
 }
 
 function pagefindPlugin({ publicDir, buildDir }: PagefindConfig): PluginOption {
-	publicDir = join(process.cwd(), publicDir, 'pagefind');
+	publicDir = join(process.cwd(), publicDir);
 	buildDir = join(process.cwd(), buildDir);
 	return [
 		pagefindDevPlugin({ publicDir, buildDir }),

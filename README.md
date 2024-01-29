@@ -49,6 +49,10 @@ Provide the directory where your build output lives.
 
 Example: `buildDir: 'public'` results in: `public/pagefind/pagefind.js`
 
+## Examples
+
+Coming soon.
+
 ## Pagefind
 
 For further questions regarding Pagefind itself you can refer to [the offical docs](https://pagefind.app/).
