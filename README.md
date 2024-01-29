@@ -2,9 +2,11 @@
 
 A Vite plugin for easily integrating pagefind into Vite based projects.
 
-## Prerequisites
+## Features
 
--   Ensure [Pagefind](https://github.com/CloudCannon/pagefind) is installed.
+-   Ensures pagefind is present during development.
+-   Ensures pagefind is ran on your build output.
+-   Ensures pagefind can be safely used through dynamic imports in conjunction with Vite.
 
 ## Installation
 
@@ -46,12 +48,6 @@ Example: `publicDir: 'static'` results in: `static/pagefind/pagefind.js`
 Provide the directory where your build output lives.
 
 Example: `buildDir: 'public'` results in: `public/pagefind/pagefind.js`
-
-## Features
-
--   Ensures pagefind is present during development.
--   Ensures pagefind after building your app.
--   Ensures pagefind can be safely used through dynamic imports.
 
 ## Pagefind
 
