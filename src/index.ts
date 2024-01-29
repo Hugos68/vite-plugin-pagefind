@@ -14,9 +14,7 @@ type PagefindDevConfig = Required<PagefindConfig>;
 type PagefindBuildConfig = Pick<PagefindConfig, 'buildDir'>;
 
 function log(input: string) {
-	console.log(
-		`${blue('[')}${blue('vite-plugin-pagefind')}${blue(']')} ${bold(input)}`
-	);
+	console.log(`${blue('[vite-plugin-pagefind]')} ${bold(input)}`);
 }
 
 function pagefindDevPlugin({
@@ -73,7 +71,6 @@ function pagefindBuildPlugin({ buildDir }: PagefindBuildConfig): PluginOption {
 			config = _config;
 		},
 		async closeBundle() {
-			console.log('called!');
 			if (!config?.build.ssr) {
 				return;
 			}
