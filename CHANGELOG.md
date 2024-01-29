@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.0.18
+
+### Patch Changes
+
+- 6da3d09: Minor doc changes
+
 ## 0.0.17
 
 ### Patch Changes
