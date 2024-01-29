@@ -3,23 +3,37 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
 import { blue, bold } from 'colorette';
+import { detect, getCommand } from '@antfu/ni';
 import * as pagefind from 'pagefind';
 
 type PagefindPluginConfig = {
-	publicDir: string;
-	buildDir: string;
+	publicDir?: string;
+	buildDir?: string;
+	buildScript?: string;
 };
 
-type PagefindDevPluginConfig = Required<PagefindPluginConfig>;
-type PagefindBuildPluginConfig = Pick<PagefindPluginConfig, 'buildDir'>;
+type PagefindDevPluginConfig = {
+	publicDir: string;
+	buildDir: string;
+	buildScript: string;
+};
+
+type PagefindBuildPluginConfig = {
+	buildDir: string;
+};
 
 function log(input: string) {
 	console.log(`${blue('[vite-plugin-pagefind]')} ${bold(input)}`);
 }
 
+async function getBuildCommand(buildScript: string) {
+	return getCommand((await detect()) ?? 'npm', 'run', [buildScript]);
+}
+
 function pagefindDevPlugin({
 	publicDir,
-	buildDir
+	buildDir,
+	buildScript
 }: PagefindDevPluginConfig): PluginOption {
 	return {
 		name: 'pagefind-dev',
@@ -40,7 +54,7 @@ function pagefindDevPlugin({
 				log('Pagefind not found.');
 				if (!existsSync(join(buildDir, 'pagefind'))) {
 					log('Build not found, building...');
-					execSync('vite build');
+					execSync(await getBuildCommand(buildScript));
 					log('Build complete.');
 				}
 				log('Running pagefind...');
@@ -97,13 +111,14 @@ function pagefindBuildPlugin({
 }
 
 function pagefindPlugin({
-	publicDir,
-	buildDir
+	publicDir = 'public',
+	buildDir = 'dist',
+	buildScript = 'build'
 }: PagefindPluginConfig): PluginOption {
 	publicDir = join(process.cwd(), publicDir);
 	buildDir = join(process.cwd(), buildDir);
 	return [
-		pagefindDevPlugin({ publicDir, buildDir }),
+		pagefindDevPlugin({ publicDir, buildDir, buildScript }),
 		pagefindBuildPlugin({ buildDir })
 	];
 }

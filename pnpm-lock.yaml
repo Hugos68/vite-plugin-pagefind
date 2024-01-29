@@ -5,6 +5,9 @@ settings:
     excludeLinksFromLockfile: false
 
 dependencies:
+    '@antfu/ni':
+        specifier: ^0.21.12
+        version: 0.21.12
     colorette:
         specifier: ^2.0.20
         version: 2.0.20
@@ -30,6 +33,14 @@ devDependencies:
         version: 5.0.12(@types/node@20.11.8)
 
 packages:
+    /@antfu/ni@0.21.12:
+        resolution:
+            {
+                integrity: sha512-2aDL3WUv8hMJb2L3r/PIQWsTLyq7RQr3v9xD16fiz6O8ys1xEyLhhTOv8gxtZvJiTzjTF5pHoArvRdesGL1DMQ==
+            }
+        hasBin: true
+        dev: false
+
     /@babel/code-frame@7.23.5:
         resolution:
             {

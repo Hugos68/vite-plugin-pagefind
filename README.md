@@ -26,7 +26,8 @@ import { pagefind, type PagefindConfig } from 'vite-plugin-pagefind';
 
 const pagefindConfig: PagefindConfig = {
 	publicDir: '...',
-	buildDir: '...'
+	buildDir: '...',
+	buildScript: '...'
 };
 
 export default defineConfig({
@@ -41,13 +42,23 @@ export default defineConfig({
 
 Provide the directory where your static assets live.
 
-Example: `publicDir: 'static'` results in: `static/pagefind/pagefind.js`
+Example: `publicDir: 'public'` results in: `public/pagefind/pagefind.js`
+
+_default:_ 'public'
 
 ### buildDir
 
 Provide the directory where your build output lives.
 
-Example: `buildDir: 'public'` results in: `public/pagefind/pagefind.js`
+Example: `buildDir: 'dist'` results in: `dist/pagefind/pagefind.js`
+
+_default:_ 'dist'
+
+### buildScript
+
+Provide the script that builds your app.
+
+_default:_ 'build'
 
 ## Examples
 
