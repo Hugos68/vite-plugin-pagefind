@@ -12,7 +12,7 @@ A Vite plugin for easily integrating pagefind into Vite based projects.
 
 vite-plugin-pagefind both hooks into the build and development process:
 
-![vite-plugin-pagefind](https://github.com/Hugos68/vite-plugin-pagefind/assets/63101006/3ff57342-90ec-4f89-88a2-b2299b885b69)
+![vite-plugin-pagefind(3)](https://github.com/Hugos68/vite-plugin-pagefind/assets/63101006/e00aa0f6-e9a8-4815-94e0-1b9b9eb19131)
 
 ## Installation
 
