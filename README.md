@@ -14,7 +14,6 @@ vite-plugin-pagefind both hooks into the build and development process:
 
 ![vite-plugin-pagefind](https://github.com/Hugos68/vite-plugin-pagefind/assets/63101006/3ff57342-90ec-4f89-88a2-b2299b885b69)
 
-
 ## Installation
 
 Install from npm using your preffered package manager:
