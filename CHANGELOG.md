@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.0.27
+
+### Patch Changes
+
+- a10bad1: Fixed bad directory
+
 ## 0.0.26
 
 ### Patch Changes
