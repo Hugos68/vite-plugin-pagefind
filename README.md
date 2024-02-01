@@ -46,7 +46,7 @@ Note: If your framework does not have a `vite.config` checkout the [examples](#e
 }
 ```
 
-Note: replace `<BUILD_DIR>` with your build directory
+Note: replace `<BUILD_DIR>` with your build directory.
 
 ## Config
 
