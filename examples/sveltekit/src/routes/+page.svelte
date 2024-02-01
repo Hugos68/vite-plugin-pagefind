@@ -3,7 +3,10 @@
 
     onMount(async () => {
         const pagefind = await import('/pagefind/pagefind.js');
-        console.log(await pagefind.search('sveltekit'));
+        const r = await pagefind.search('sveltekit');
+        for (const result of r.results) {
+            console.log(await result.data());
+        }
     })
 </script>
 

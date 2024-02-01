@@ -4,7 +4,10 @@
 
 <script>
 	const pagefind = await import('/pagefind/pagefind.js');
-	console.log(await pagefind.search('astro'));
+	const r = await pagefind.search('astro');
+	for (const result of r.results) {
+		console.log(await result.data());
+	}
 </script>
 
 <html lang="en">

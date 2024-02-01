@@ -5,26 +5,19 @@ A Vite plugin for easily integrating pagefind into Vite based projects.
 ## Features
 
 -   Ensures pagefind is present during development.
--   Ensures pagefind is ran on your build output.
 -   Ensures pagefind can be safely used through dynamic imports in conjunction with Vite.
-
-## How it works
-
-vite-plugin-pagefind both hooks into the build and development process:
-
-![vite-plugin-pagefind(3)](https://github.com/Hugos68/vite-plugin-pagefind/assets/63101006/e00aa0f6-e9a8-4815-94e0-1b9b9eb19131)
 
 ## Installation
 
 Install from npm using your preffered package manager:
 
 ```bash
-pnpm add -D vite-plugin-pagefind
+pnpm add -D vite-plugin-pagefind pagefind
 ```
 
 ## Usage
 
-Add the plugin to your `vite.config.ts`:
+1. Add the plugin to in `vite.config.ts`:
 
 ```ts
 import { defineConfig } from 'vite';
@@ -40,6 +33,20 @@ export default defineConfig({
 	plugins: [pagefind(pagefindConfig)]
 });
 ```
+
+Note: If your framework does not have a `vite.config` checkout the [examples](#examples), if your framework is not listed there consider consulting the framework documentation to see how to add a Vite plugin.
+
+2. Add the post build command to your `package.json`:
+
+```json
+{
+	"scripts": {
+		"build": "vite build && pagefind --site <BUILD_DIR>"
+	}
+}
+```
+
+Note: replace `<BUILD_DIR>` with your build directory
 
 ## Config
 
@@ -67,7 +74,7 @@ _default:_ 'build'
 
 ## Examples
 
-Every framework implements their build and dev process slightly different, this is why there is an [examples folder](examples/) to demonstrate usage in a specific framework:
+The setup for individual frameworks can differ (For example Astro, which has it's own CLI around Vite), because of this there are framework specific examples in the [examples folder](examples/):
 
 -   [Astro](examples/astro/)
 -   [SvelteKit](examples/sveltekit/)

@@ -10,9 +10,12 @@ dependencies:
     version: 4.2.6
 
 devDependencies:
+  pagefind:
+    specifier: ^1.0.4
+    version: 1.0.4
   vite-plugin-pagefind:
-    specifier: ^0.0.20
-    version: 0.0.20
+    specifier: ^0.0.23
+    version: 0.0.23
 
 packages:
 
@@ -3352,8 +3355,8 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /vite-plugin-pagefind@0.0.20:
-    resolution: {integrity: sha512-L1wLMXZ8zyhN2E78qohDijMY3Vxxknph44LWov4KAifjB+TyKJwKPpSgq6kBt2lzD6bnWRXORY17RUcMjC/D9w==}
+  /vite-plugin-pagefind@0.0.23:
+    resolution: {integrity: sha512-rSkBViMhO5uiCL6cVWwGRuprfkpwMzGvn6krC+CUy+KW6txKdSwKEaElNBGqwR7lF52v2kT1ZTa0Wb1LtNiVng==}
     dependencies:
       '@antfu/ni': 0.21.12
       colorette: 2.0.20

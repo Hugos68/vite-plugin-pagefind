@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -13,6 +13,7 @@
     "astro": "^4.2.6"
   },
   "devDependencies": {
-    "vite-plugin-pagefind": "^0.0.20"
+    "pagefind": "^1.0.4",
+    "vite-plugin-pagefind": "^0.0.24"
   }
 }
