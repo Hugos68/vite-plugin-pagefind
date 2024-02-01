@@ -65,7 +65,7 @@ function pagefindDevPlugin({
 			log('Running pagefind...');
 			const time = await executeMeasured(() =>
 				execSync(
-					`pagefind --site ${buildDir} --output-path ${publicDir}`
+					`pagefind --site ${buildDir} --output-path ${join(publicDir, 'pagefind')}`
 				)
 			);
 			log(`Pagefind completed in ${millisToSeconds(time)}.`);
