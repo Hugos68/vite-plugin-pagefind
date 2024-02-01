@@ -30,8 +30,8 @@ async function getBuildCommand(buildScript: string) {
 async function executeMeasured(fn: () => Promise<unknown> | unknown) {
 	const start = performance.now();
 	await fn();
-	const end = performance.now();
-	return start - end;
+	const stop = performance.now();
+	return stop - start;
 }
 
 function millisToSeconds(time: number) {
