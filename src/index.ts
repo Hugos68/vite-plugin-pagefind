@@ -39,7 +39,25 @@ function pagefindDevPlugin({
 	return {
 		name: 'pagefind-dev',
 		apply: 'serve',
-		config() {
+		async config() {
+			if (!existsSync(join(publicDir, 'pagefind'))) {
+				log('Pagefind not found.');
+				if (!existsSync(join(buildDir, 'pagefind'))) {
+					const buildCommand = await getBuildCommand(buildScript);
+					log(`Build not found, running "${buildCommand}".`);
+					const time = await executeMeasured(() =>
+						execSync(buildCommand)
+					);
+					log(`Build completed in ${millisToSeconds(time)}.`);
+				}
+				log('Running pagefind...');
+				const time = await executeMeasured(() =>
+					execSync(
+						`pagefind --site ${buildDir} --output-path ${join(publicDir, 'pagefind')}`
+					)
+				);
+				log(`Pagefind completed in ${millisToSeconds(time)}.`);
+			}
 			return {
 				assetsInclude: '**/pagefind.js',
 				build: {
@@ -48,27 +66,6 @@ function pagefindDevPlugin({
 					}
 				}
 			};
-		},
-		async configureServer() {
-			if (existsSync(join(publicDir, 'pagefind'))) {
-				return;
-			}
-			log('Pagefind not found.');
-			if (!existsSync(join(buildDir, 'pagefind'))) {
-				const buildCommand = await getBuildCommand(buildScript);
-				log(`Build not found, running "${buildCommand}".`);
-				const time = await executeMeasured(() =>
-					execSync(buildCommand)
-				);
-				log(`Build completed in ${millisToSeconds(time)}.`);
-			}
-			log('Running pagefind...');
-			const time = await executeMeasured(() =>
-				execSync(
-					`pagefind --site ${buildDir} --output-path ${join(publicDir, 'pagefind')}`
-				)
-			);
-			log(`Pagefind completed in ${millisToSeconds(time)}.`);
 		}
 	};
 }
