@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.0.25
+
+### Patch Changes
+
+- 19ca67b: Fixed executeMeasured return time (start - stop should be stop - start)
+
 ## 0.0.24
 
 ### Patch Changes
