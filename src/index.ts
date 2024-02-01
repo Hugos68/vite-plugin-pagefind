@@ -1,22 +1,15 @@
-import type { PluginOption } from 'vite';
+import { build, type PluginOption } from 'vite';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
 import { performance } from 'perf_hooks';
 import { blue, bold } from 'colorette';
 import { detect, getCommand } from '@antfu/ni';
-import * as pagefind from 'pagefind';
 
 type PagefindPluginConfig = {
 	publicDir?: string;
 	buildDir?: string;
 	buildScript?: string;
-};
-
-type PagefindDevPluginConfig = {
-	publicDir: string;
-	buildDir: string;
-	buildScript: string;
 };
 
 function log(input: string) {
@@ -42,7 +35,7 @@ function pagefindDevPlugin({
 	publicDir,
 	buildDir,
 	buildScript
-}: PagefindDevPluginConfig): PluginOption {
+}: Required<PagefindPluginConfig>): PluginOption {
 	return {
 		name: 'pagefind-dev',
 		apply: 'serve',
@@ -57,29 +50,25 @@ function pagefindDevPlugin({
 			};
 		},
 		async configureServer() {
-			if (!existsSync(join(publicDir, 'pagefind'))) {
-				log('Pagefind not found.');
-				if (!existsSync(join(buildDir, 'pagefind'))) {
-					const buildCommand = await getBuildCommand(buildScript);
-					log(`Build not found, running "${buildCommand}".`);
-					const time = await executeMeasured(() =>
-						execSync(buildCommand)
-					);
-					log(`Build completed in ${millisToSeconds(time)}.`);
-				}
-				log('Running pagefind...');
-				const time = await executeMeasured(async () => {
-					const { index } = await pagefind.createIndex({});
-					await index.addDirectory({
-						path: buildDir
-					});
-					await index.writeFiles({
-						outputPath: join(publicDir, 'pagefind')
-					});
-					await pagefind.close();
-				});
-				log(`Pagefind completed in ${millisToSeconds(time)}.`);
+			if (existsSync(join(publicDir, 'pagefind'))) {
+				return;
 			}
+			log('Pagefind not found.');
+			if (!existsSync(join(buildDir, 'pagefind'))) {
+				const buildCommand = await getBuildCommand(buildScript);
+				log(`Build not found, running "${buildCommand}".`);
+				const time = await executeMeasured(() =>
+					execSync(buildCommand)
+				);
+				log(`Build completed in ${millisToSeconds(time)}.`);
+			}
+			log('Running pagefind...');
+			const time = await executeMeasured(() =>
+				execSync(
+					`pagefind --site ${buildDir} --output-path ${publicDir}`
+				)
+			);
+			log(`Pagefind completed in ${millisToSeconds(time)}.`);
 		}
 	};
 }

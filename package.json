@@ -33,8 +33,7 @@
 	},
 	"dependencies": {
 		"@antfu/ni": "^0.21.12",
-		"colorette": "^2.0.20",
-		"pagefind": "^1.0.4"
+		"colorette": "^2.0.20"
 	},
 	"type": "module",
 	"keywords": [
