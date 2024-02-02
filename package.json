@@ -1,7 +1,7 @@
 {
 	"name": "vite-plugin-pagefind",
 	"description": "A Vite plugin for easily integrating pagefind into Vite based projects.",
-	"version": "0.0.28",
+	"version": "0.0.29",
 	"author": {
 		"name": "Hugo Korte",
 		"email": "hugokorteapple@gmail.com"
