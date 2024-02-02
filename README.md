@@ -12,7 +12,7 @@ A Vite plugin for easily integrating pagefind into Vite based projects.
 Install from npm using your preferred package manager:
 
 ```bash
-pnpm add -D vite-plugin-pagefind pagefind
+pnpm add -D pagefind vite-plugin-pagefind
 ```
 
 ## Usage
