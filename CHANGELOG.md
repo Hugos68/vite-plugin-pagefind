@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.0.30
+
+### Patch Changes
+
+- 3bd4c12: Add quotes to path so it still works when there are spaces in the path
+
 ## 0.0.29
 
 ### Patch Changes
