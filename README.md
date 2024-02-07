@@ -7,6 +7,10 @@ A Vite plugin for easily integrating pagefind into Vite based projects.
 -   Ensures pagefind is present during development.
 -   Ensures pagefind can be safely used through dynamic imports in conjunction with Vite.
 
+## Why?
+
+Read about the reasoning for this plugin here: https://hugokorte.pages.dev/articles/pagefind-with-vite
+
 ## Installation
 
 Install from npm using your preferred package manager:
