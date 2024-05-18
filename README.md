@@ -9,7 +9,7 @@ A Vite plugin for easily integrating pagefind into Vite based projects.
 
 ## Why?
 
-Read about the reasoning for this plugin here: https://hugokorte.pages.dev/articles/pagefind-with-vite
+Read about the reasoning for this plugin here: [https://hugokorte.pages.dev/articles/pagefind-with-vite](https://portfolio-2-70z.pages.dev/blog/pagefind-with-vite/)
 
 ## Installation
 
