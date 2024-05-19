@@ -1,26 +1,38 @@
-import { build, type PluginOption } from 'vite';
-import { join } from 'path';
+import { resolve } from 'path';
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
 import { performance } from 'perf_hooks';
 import { blue, bold } from 'colorette';
 import { detect, getCommand } from '@antfu/ni';
+import type { PluginOption } from 'vite';
 
-type PagefindPluginConfig = {
-	publicDir?: string;
-	buildDir?: string;
-	buildScript?: string;
+export type Config = {
+	/**
+	 * The directory where the static assets are located relative to the project's root as specified in the vite config.
+	 * @default 'public'
+	 */
+	assetsDir: string;
+	/**
+	 * The directory where the build output is located relative to the project's root as specified in the vite config.
+	 * @default 'dist'
+	 */
+	buildDir: string;
+	/**
+	 * The npm script to run to build and index the project.
+	 * @default 'build'
+	 */
+	buildScript: string;
 };
 
-function log(input: string) {
+function console_log(input: string) {
 	console.log(`${blue('[vite-plugin-pagefind]')} ${bold(input)}`);
 }
 
-async function getBuildCommand(buildScript: string) {
+async function get_build_command(buildScript: string) {
 	return getCommand((await detect()) ?? 'npm', 'run', [buildScript]);
 }
 
-async function executeMeasured(fn: () => Promise<unknown> | unknown) {
+async function execute_measured(fn: () => Promise<unknown> | unknown) {
 	const start = performance.now();
 	await fn();
 	const stop = performance.now();
@@ -31,32 +43,42 @@ function millisToSeconds(time: number) {
 	return `${(time / 1000).toFixed(2)}s`;
 }
 
-function pagefindDevPlugin({
-	publicDir,
-	buildDir,
-	buildScript
-}: Required<PagefindPluginConfig>): PluginOption {
+function dev(options: Config): PluginOption {
 	return {
 		name: 'pagefind-dev',
 		apply: 'serve',
-		async config() {
-			if (!existsSync(join(publicDir, 'pagefind'))) {
-				log('Pagefind not found.');
-				if (!existsSync(join(buildDir, 'pagefind'))) {
-					const buildCommand = await getBuildCommand(buildScript);
-					log(`Build not found, running "${buildCommand}".`);
-					const time = await executeMeasured(() =>
-						execSync(buildCommand)
+		async config(config) {
+			const buildDir = resolve(config.root, options.buildDir);
+			const publicPagefindDir = resolve(
+				config.root,
+				options.assetsDir,
+				'pagefind'
+			);
+			const buildPagefindDir = resolve(
+				config.root,
+				options.buildDir,
+				'pagefind'
+			);
+			if (!existsSync(publicPagefindDir)) {
+				console_log('Pagefind not found.');
+				if (!existsSync(buildPagefindDir)) {
+					const buildCommand = await get_build_command(
+						options.buildScript
 					);
-					log(`Build completed in ${millisToSeconds(time)}.`);
+					console_log(`Build not found, running "${buildCommand}".`);
+					const time = await execute_measured(() =>
+						execSync(buildCommand, { cwd: config.root })
+					);
+					console_log(`Build completed in ${millisToSeconds(time)}.`);
 				}
-				log('Running pagefind...');
-				const time = await executeMeasured(() =>
+				console_log('Running pagefind...');
+				const time = await execute_measured(() =>
 					execSync(
-						`pagefind --site "${buildDir}" --output-path "${join(publicDir, 'pagefind')}"`
+						`pagefind --site "${buildDir}" --output-path "${publicPagefindDir}"`,
+						{ cwd: config.root }
 					)
 				);
-				log(`Pagefind completed in ${millisToSeconds(time)}.`);
+				console_log(`Pagefind completed in ${millisToSeconds(time)}.`);
 			}
 			return {
 				assetsInclude: '**/pagefind.js',
@@ -70,7 +92,7 @@ function pagefindDevPlugin({
 	};
 }
 
-function pagefindBuildPlugin(): PluginOption {
+function build(): PluginOption {
 	return {
 		name: 'pagefind-build',
 		apply: 'build',
@@ -86,17 +108,11 @@ function pagefindBuildPlugin(): PluginOption {
 	};
 }
 
-function pagefindPlugin({
-	publicDir = 'public',
-	buildDir = 'dist',
-	buildScript = 'build'
-}: PagefindPluginConfig = {}): PluginOption {
-	publicDir = join(process.cwd(), publicDir);
-	buildDir = join(process.cwd(), buildDir);
-	return [
-		pagefindDevPlugin({ publicDir, buildDir, buildScript }),
-		pagefindBuildPlugin()
-	];
+export function pagefind(options: Partial<Config> = {}): PluginOption {
+	const {
+		assetsDir = 'public',
+		buildDir = 'dist',
+		buildScript = 'build'
+	} = options;
+	return [dev({ assetsDir, buildDir, buildScript }), build()];
 }
-
-export { pagefindPlugin as pagefind, PagefindPluginConfig as PagefindConfig };

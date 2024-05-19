@@ -25,16 +25,16 @@ pnpm add -D pagefind vite-plugin-pagefind
 
 ```ts
 import { defineConfig } from 'vite';
-import { pagefind, type PagefindConfig } from 'vite-plugin-pagefind';
+import { pagefind, type Config } from 'vite-plugin-pagefind';
 
-const pagefindConfig: PagefindConfig = {
-	publicDir: '...',
+const config: Config = {
+	assetsDir: '...',
 	buildDir: '...',
 	buildScript: '...'
 };
 
 export default defineConfig({
-	plugins: [pagefind(pagefindConfig)]
+	plugins: [pagefind(config)]
 });
 ```
 
@@ -54,17 +54,17 @@ Note: Replace `<BUILD_DIR>` with your build directory.
 
 ## Config
 
-### publicDir
+### assetsDir
 
-Provide the directory where your static assets live.
+The directory where the static assets are located relative to the project's root as specified in the vite config.
 
-Example: `publicDir: 'public'` results in: `public/pagefind/pagefind.js`
+Example: `assetsDir: 'public'` results in: `public/pagefind/pagefind.js`
 
 _default:_ 'public'
 
 ### buildDir
 
-Provide the directory where your build output lives.
+The directory where the build output is located relative to the project's root as specified in the vite config.
 
 Example: `buildDir: 'dist'` results in: `dist/pagefind/pagefind.js`
 
@@ -72,7 +72,7 @@ _default:_ 'dist'
 
 ### buildScript
 
-Provide the script that builds your app.
+The npm script to run to build and index the project.
 
 _default:_ 'build'
 
