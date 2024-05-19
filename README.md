@@ -86,6 +86,14 @@ The setup for individual frameworks can differ (For example Astro, which has it'
 
 Don't see your framework? Consider adding it through a contribution!
 
+## Types
+
+Besides the plugin, this package also exposes [the types from pagefind](https://github.com/CloudCannon/pagefind/blob/production-docs/pagefind_web_js/types/index.d.ts) as well as extending them by providing an additional `Pagefind` type:
+
+```ts
+const pagefind: Pagefind = await import('/pagefind/pagefind.js');
+```
+
 ## Pagefind
 
 For further questions regarding Pagefind itself you can refer to [the offical docs](https://pagefind.app/).
