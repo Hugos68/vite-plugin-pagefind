@@ -7,7 +7,6 @@
 		"strict": true,
 		"allowJs": true,
 		"checkJs": true,
-		"declarationMap": true,
 		"skipLibCheck": true
 	},
 	"include": ["./src"]
