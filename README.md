@@ -24,15 +24,15 @@ pnpm add -D pagefind vite-plugin-pagefind
 1. Add the plugin to in `vite.config.ts`:
 
 ```ts
-import { defineConfig } from 'vite';
-import pagefind from 'vite-plugin-pagefind';
+import { defineConfig } from "vite";
+import pagefind from "vite-plugin-pagefind";
 
 export default defineConfig({
-	plugins: [pagefind()]
+	plugins: [pagefind()],
 });
 ```
 
-Note: If your framework does not have a `vite.config` checkout the [examples](#examples), if your framework is not listed there consider consulting the framework documentation to see how to add a Vite plugin.
+Note: If your framework does not have a `vite.config` consider consulting the framework documentation to see how to add a Vite plugin.
 
 2. Add the post build command to your `package.json`:
 
@@ -57,7 +57,7 @@ Note: If your framework does not have a `vite.config` checkout the [examples](#e
 }
 ```
 
-Note: `vite-plugin-pagefind` currently only supports `.json` files, more will be supported in the future.
+Note: `vite-plugin-pagefind` currently only supports `.json` files, more are planned be supported in the future.
 
 ## Config
 
@@ -91,14 +91,10 @@ _default_: 'lazy'
 Apart from the plugin, this package also exposes [the types from pagefind](https://github.com/CloudCannon/pagefind/blob/production-docs/pagefind_web_js/types/index.d.ts) as well as extending them by providing an additional `Pagefind` type:
 
 ```ts
-import type { Pagefind } from 'vite-plugin-pagefind/types';
+import type { Pagefind } from "vite-plugin-pagefind/types";
 
-const pagefind: Pagefind = await import('/pagefind/pagefind.js');
+const pagefind: Pagefind = await import("/pagefind/pagefind.js");
 ```
-
-## Examples
-
-COMING SOON
 
 ## Pagefind
 
