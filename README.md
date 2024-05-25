@@ -49,10 +49,10 @@ Note: If your framework does not have a `vite.config` checkout the [examples](#e
 ```json
 {
 	"site": "<BUILD_DIR>",
-	"vite_plugin": {
+	"vite_plugin_pagefind": {
 		"assets_dir": "<ASSETS_DIR>",
-		"build_command": "BUILD_COMMAND",
-		"dev_strategy": "DEV_STRATEGY"
+		"build_command": "<BUILD_COMMAND>",
+		"dev_strategy": "<DEV_STRATEGY>"
 	}
 }
 ```
