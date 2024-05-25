@@ -6,17 +6,29 @@
 		"name": "Hugo Korte",
 		"email": "hugokorteapple@gmail.com"
 	},
+	"keywords": [
+		"vite",
+		"vite-plugin",
+		"pagefind"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
+	"type": "module",
+	"license": "MIT",
 	"publishConfig": {
 		"access": "public"
 	},
-	"license": "MIT",
 	"exports": {
-		".": "./dist/index.js",
-		"./types": "./dist/types.d.ts"
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./types": {
+			"types": "./dist/types.d.ts",
+			"import": "./dist/types.js"
+		}
 	},
 	"files": [
 		"dist"
@@ -37,11 +49,5 @@
 	"dependencies": {
 		"colorette": "^2.0.20",
 		"valibot": "0.31.0-rc.4"
-	},
-	"type": "module",
-	"keywords": [
-		"vite",
-		"vite-plugin",
-		"pagefind"
-	]
+	}
 }
