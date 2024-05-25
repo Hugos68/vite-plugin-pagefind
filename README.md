@@ -98,13 +98,7 @@ const pagefind: Pagefind = await import('/pagefind/pagefind.js');
 
 ## Examples
 
-The setup for individual frameworks can differ (For example Astro, which has it's own CLI around Vite), because of this there are framework specific examples in the [examples folder](examples/):
-
--   [Astro](examples/astro/)
--   [Nuxt](examples/nuxt/)
--   [SvelteKit](examples/sveltekit/)
-
-Don't see your framework? Consider adding it through a contribution!
+COMING SOON
 
 ## Pagefind
 
