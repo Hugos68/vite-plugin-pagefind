@@ -2,20 +2,20 @@
 	"name": "vite-plugin-pagefind",
 	"description": "A Vite plugin for easily integrating pagefind into Vite based projects.",
 	"version": "0.2.6",
+	"license": "MIT",
 	"author": {
 		"name": "Hugo Korte",
 		"email": "hugokorteapple@gmail.com"
 	},
-	"keywords": ["vite", "vite-plugin", "pagefind"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
-	"type": "module",
-	"license": "MIT",
+	"keywords": ["vite", "vite-plugin", "pagefind"],
 	"publishConfig": {
 		"access": "public"
 	},
+	"files": ["dist"],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -26,13 +26,16 @@
 			"import": "./dist/types/index.js"
 		}
 	},
-	"files": ["dist"],
 	"scripts": {
 		"dev": "tsc -w",
 		"build": "tsc",
 		"format": "biome format . --write",
 		"lint": "biome lint .",
 		"release": "pnpm build && changeset publish"
+	},
+	"dependencies": {
+		"colorette": "^2.0.20",
+		"valibot": "0.31.0-rc.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.7.3",
@@ -41,8 +44,5 @@
 		"typescript": "^5.3.3",
 		"vite": "^5.0.12"
 	},
-	"dependencies": {
-		"colorette": "^2.0.20",
-		"valibot": "0.31.0-rc.4"
-	}
+	"type": "module"
 }
