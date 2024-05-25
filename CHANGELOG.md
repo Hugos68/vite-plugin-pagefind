@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.2.6
+
+### Patch Changes
+
+-   c0c6b7b: Fixed `dev` having the correct plugin name
+
 ## 0.2.5
 
 ### Patch Changes
