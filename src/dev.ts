@@ -11,7 +11,7 @@ const exec = promisify(exec_callback);
 
 export default function dev(): PluginOption {
 	return {
-		name: `${PACKAGE_NAME}-build`,
+		name: `${PACKAGE_NAME}-dev`,
 		apply: 'serve',
 		async config(vite_config) {
 			const pagefind_config = get_pagefind_config(vite_config.root);
