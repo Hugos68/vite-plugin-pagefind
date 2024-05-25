@@ -45,7 +45,9 @@ export default function dev() {
 			}
 
 			async function copy_bundle() {
-				log_info(`Copying pagefind bundle to "${assets_dir}"...`);
+				log_info(
+					`Copying pagefind bundle to "${pagefind_config.vite_plugin_pagefind.assets_dir}"...`,
+				);
 				await promises.cp(
 					resolve(site_dir, "pagefind"),
 					resolve(assets_dir, "pagefind"),

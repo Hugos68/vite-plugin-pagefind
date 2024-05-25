@@ -1,22 +1,48 @@
 {
 	"name": "vite-plugin-pagefind",
-	"description": "Monorepo for vite-plugin-pagefind",
-	"private": true,
+	"description": "A Vite plugin for easily integrating pagefind into Vite based projects.",
+	"version": "0.2.6",
+	"author": {
+		"name": "Hugo Korte",
+		"email": "hugokorteapple@gmail.com"
+	},
+	"keywords": ["vite", "vite-plugin", "pagefind"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
+	"type": "module",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./types": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/types/index.js"
+		}
+	},
+	"files": ["dist"],
 	"scripts": {
-		"format": "pnpm --parallel format",
-		"lint": "pnpm --parallel lint"
+		"dev": "tsc -w",
+		"build": "tsc",
+		"format": "biome format . --write",
+		"lint": "biome lint .",
+		"release": "pnpm build && changeset publish"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.27.1"
+		"@biomejs/biome": "1.7.3",
+		"@changesets/cli": "^2.27.3",
+		"@types/node": "^20.12.12",
+		"typescript": "^5.3.3",
+		"vite": "^5.0.12"
 	},
-	"packageManager": "pnpm@9.1.2",
-	"engines": {
-		"pnpm": ">=9.1.2",
-		"node": ">=20.13.1"
-	},
-	"license": "MIT"
+	"dependencies": {
+		"colorette": "^2.0.20",
+		"valibot": "0.31.0-rc.4"
+	}
 }
