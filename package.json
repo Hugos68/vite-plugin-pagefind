@@ -6,11 +6,7 @@
 		"name": "Hugo Korte",
 		"email": "hugokorteapple@gmail.com"
 	},
-	"keywords": [
-		"vite",
-		"vite-plugin",
-		"pagefind"
-	],
+	"keywords": ["vite", "vite-plugin", "pagefind"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
@@ -22,27 +18,25 @@
 	},
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
+			"types": "./dist/plugins/index.d.ts",
+			"import": "./dist/plugins/index.js"
 		},
 		"./types": {
-			"types": "./dist/types.d.ts",
-			"import": "./dist/types.js"
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/types/index.js"
 		}
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"scripts": {
 		"dev": "tsc -w",
 		"build": "tsc",
-		"format": "prettier --write .",
+		"format": "biome format .  --write",
+		"lint": "biome lint .",
 		"release": "pnpm build && changeset publish"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "1.7.3",
 		"@changesets/cli": "^2.27.1",
-		"@types/node": "^20.11.8",
-		"prettier": "3.2.4",
 		"typescript": "^5.3.3",
 		"vite": "^5.0.12"
 	},
