@@ -1,10 +1,10 @@
-import dev from "./dev.js";
-import build from "./build.js";
+import pagefind_dev from "./plugins/pagefind-dev.js";
+import pagefind_build from "./plugins/pagefind-build.js";
 
 /**
  * Vite plugin to allow developing and building websites with Pagefind.
  * @returns {import('vite').PluginOption}
  */
 export default function pagefind() {
-	return [dev(), build()];
+	return [pagefind_dev(), pagefind_build()];
 }

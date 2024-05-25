@@ -1,4 +1,4 @@
-import { PACKAGE_NAME } from "../utility/constants.js";
+import { PACKAGE_NAME } from "../internal/constants.js";
 
 /**
  * Vite plugin to allow building websites with Pagefind.

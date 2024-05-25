@@ -2,9 +2,9 @@ import { resolve } from "node:path";
 import { existsSync, promises } from "node:fs";
 import { exec as exec_callback } from "node:child_process";
 import { promisify } from "node:util";
-import { get_pagefind_config } from "../utility/config.js";
-import { log_info } from "../utility/log.js";
-import { PACKAGE_NAME } from "../utility/constants.js";
+import { get_pagefind_config } from "../internal/config.js";
+import { log_info } from "../internal/log.js";
+import { PACKAGE_NAME } from "../internal/constants.js";
 
 const exec = promisify(exec_callback);
 
