@@ -1,5 +1,13 @@
 # vite-plugin-pagefind
 
+## 0.2.1
+
+### Patch Changes
+
+-   8dcc9bc: Added defaults per config options
+-   20c545a: Renamed `vite_plugin` to `vite_plugin_pagefind`
+-   8dcc9bc: Added `/types` export for easier use
+
 ## 0.2.0
 
 ### Minor Changes
