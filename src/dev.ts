@@ -15,10 +15,11 @@ export default function dev(): PluginOption {
 
 			switch (pagefind_config.dev_strategy) {
 				case 'eager': {
-					console_log('Building pagefind...');
+					console_log('Building site...');
 					execSync(pagefind_config.build_command, {
 						cwd: vite_config.root
 					});
+
 					console_log(`Copying pagefind bundle to assets dir...`);
 					await promises.cp(
 						resolve(pagefind_config.site_dir, 'pagefind'),
@@ -38,7 +39,7 @@ export default function dev(): PluginOption {
 						);
 
 						if (!pagefind_in_site) {
-							console_log('Building pagefind...');
+							console_log('Building site...');
 							execSync(pagefind_config.build_command, {
 								cwd: vite_config.root
 							});
