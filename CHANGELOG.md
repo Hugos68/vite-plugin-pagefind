@@ -1,5 +1,12 @@
 # vite-plugin-pagefind
 
+## 0.2.0
+
+### Minor Changes
+
+-   010e977: Added `dev_strategy` option, meaning you can develop with eager or lazy indexing
+-   010e977: Plugin now strictly uses pagefind.json
+
 ## 0.1.1
 
 ### Patch Changes
