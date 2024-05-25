@@ -1,5 +1,5 @@
-import { resolve } from "node:path";
 import { promises } from "node:fs";
+import { resolve } from "node:path";
 import * as v from "valibot";
 
 const PagefindConfigSchema = v.object({

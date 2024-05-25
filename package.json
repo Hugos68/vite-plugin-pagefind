@@ -11,17 +11,11 @@
 		"type": "git",
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
-	"keywords": [
-		"vite",
-		"vite-plugin",
-		"pagefind"
-	],
+	"keywords": ["vite", "vite-plugin", "pagefind"],
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"exports": {
 		".": {
 			"types": "./dist/plugins/pagefind.d.ts",
@@ -35,8 +29,8 @@
 	"scripts": {
 		"dev": "tsc -w",
 		"build": "tsc",
-		"format": "biome format . --write",
-		"lint": "biome lint .",
+		"check": "biome check . --apply",
+		"ci:check": "biome check .",
 		"release": "pnpm build && changeset publish"
 	},
 	"dependencies": {

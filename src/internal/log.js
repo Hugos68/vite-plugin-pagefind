@@ -1,4 +1,4 @@
-import { blue, yellow, red, bold } from "colorette";
+import { blue, bold, red, yellow } from "colorette";
 import { PACKAGE_NAME } from "./constants.js";
 
 /**

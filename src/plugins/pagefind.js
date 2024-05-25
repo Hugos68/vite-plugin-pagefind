@@ -1,5 +1,5 @@
-import pagefind_dev from "./pagefind-dev.js";
 import pagefind_build from "./pagefind-build.js";
+import pagefind_dev from "./pagefind-dev.js";
 
 /**
  * Vite plugin to allow developing and building websites with Pagefind.
