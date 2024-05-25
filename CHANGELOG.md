@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.2.2
+
+### Patch Changes
+
+-   64dcd74: Made `vite_plugin_pagefind` optional so an empty config is no longer required
+
 ## 0.2.1
 
 ### Patch Changes
