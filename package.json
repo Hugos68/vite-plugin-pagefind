@@ -32,8 +32,8 @@
 		"vite": "^5.0.12"
 	},
 	"dependencies": {
-		"@antfu/ni": "^0.21.12",
-		"colorette": "^2.0.20"
+		"colorette": "^2.0.20",
+		"valibot": "0.31.0-rc.4"
 	},
 	"type": "module",
 	"keywords": [
