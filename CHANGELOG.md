@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.2.4
+
+### Patch Changes
+
+-   b82f87c: Catch errors and log instead of throwing
+
 ## 0.2.3
 
 ### Patch Changes
