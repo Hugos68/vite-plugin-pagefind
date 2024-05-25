@@ -2,6 +2,7 @@ name: CI
 
 on:
     pull_request:
+        branches: "*"
 
 env:
     node_version: 20
