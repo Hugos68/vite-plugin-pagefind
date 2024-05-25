@@ -1,10 +1,13 @@
 import { PluginOption } from 'vite';
 import { resolve } from 'path';
 import { existsSync, promises } from 'fs';
-import { execSync } from 'child_process';
+import { exec as exec_callback } from 'child_process';
 import { get_pagefind_config } from './util/config.js';
 import { console_log } from './util/log.js';
 import { PACKAGE_NAME } from './util/constants.js';
+import { promisify } from 'util';
+
+const exec = promisify(exec_callback);
 
 export default function dev(): PluginOption {
 	return {
@@ -13,19 +16,38 @@ export default function dev(): PluginOption {
 		async config(vite_config) {
 			const pagefind_config = get_pagefind_config(vite_config.root);
 
-			switch (pagefind_config.dev_strategy) {
-				case 'eager': {
-					console_log('Building site...');
-					execSync(pagefind_config.build_command, {
+			async function build() {
+				console_log('Building site...');
+				try {
+					await exec(pagefind_config.build_command, {
 						cwd: vite_config.root
 					});
+				} catch (e) {
+					console_log(
+						`Failed to build site: ${e instanceof Error ? e.message : e}`
+					);
+				}
+			}
 
-					console_log(`Copying pagefind bundle to assets dir...`);
+			async function copy_bundle() {
+				console_log(`Copying pagefind bundle to assets dir...`);
+				try {
 					await promises.cp(
 						resolve(pagefind_config.site_dir, 'pagefind'),
 						resolve(pagefind_config.assets_dir, 'pagefind'),
 						{ recursive: true }
 					);
+				} catch (e) {
+					console_log(
+						`Failed to copy pagefind bundle: ${e instanceof Error ? e.message : e}`
+					);
+				}
+			}
+
+			switch (pagefind_config.dev_strategy) {
+				case 'eager': {
+					await build();
+					await copy_bundle();
 					break;
 				}
 				case 'lazy': {
@@ -33,25 +55,19 @@ export default function dev(): PluginOption {
 						resolve(pagefind_config.assets_dir, 'pagefind')
 					);
 
-					if (!pagefind_in_assets) {
-						const pagefind_in_site = existsSync(
-							resolve(pagefind_config.site_dir, 'pagefind')
-						);
-
-						if (!pagefind_in_site) {
-							console_log('Building site...');
-							execSync(pagefind_config.build_command, {
-								cwd: vite_config.root
-							});
-						}
-
-						console_log(`Copying pagefind bundle to assets dir...`);
-						await promises.cp(
-							resolve(pagefind_config.site_dir, 'pagefind'),
-							resolve(pagefind_config.assets_dir, 'pagefind'),
-							{ recursive: true }
-						);
+					if (pagefind_in_assets) {
+						return;
 					}
+
+					const pagefind_in_site = existsSync(
+						resolve(pagefind_config.site_dir, 'pagefind')
+					);
+
+					if (!pagefind_in_site) {
+						await build();
+					}
+
+					await copy_bundle();
 					break;
 				}
 				default: {
