@@ -18,30 +18,18 @@ export default function dev(): PluginOption {
 
 			async function build() {
 				console_log('Building site...');
-				try {
-					await exec(pagefind_config.build_command, {
-						cwd: vite_config.root
-					});
-				} catch (e) {
-					console_log(
-						`Failed to build site: ${e instanceof Error ? e.message : e}`
-					);
-				}
+				await exec(pagefind_config.build_command, {
+					cwd: vite_config.root
+				});
 			}
 
 			async function copy_bundle() {
 				console_log(`Copying pagefind bundle to assets dir...`);
-				try {
-					await promises.cp(
-						resolve(pagefind_config.site_dir, 'pagefind'),
-						resolve(pagefind_config.assets_dir, 'pagefind'),
-						{ recursive: true }
-					);
-				} catch (e) {
-					console_log(
-						`Failed to copy pagefind bundle: ${e instanceof Error ? e.message : e}`
-					);
-				}
+				await promises.cp(
+					resolve(pagefind_config.site_dir, 'pagefind'),
+					resolve(pagefind_config.assets_dir, 'pagefind'),
+					{ recursive: true }
+				);
 			}
 
 			switch (pagefind_config.dev_strategy) {
