@@ -11,19 +11,25 @@
 		"type": "git",
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
-	"keywords": ["vite", "vite-plugin", "pagefind"],
+	"keywords": [
+		"vite",
+		"vite-plugin",
+		"pagefind"
+	],
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
+			"types": "./dist/plugins/pagefind.d.ts",
+			"import": "./dist/plugins/pagefind.js"
 		},
 		"./types": {
-			"types": "./dist/types/index.d.ts",
-			"import": "./dist/types/index.js"
+			"types": "./dist/types/pagefind.d.ts",
+			"import": "./dist/types/pagefind.js"
 		}
 	},
 	"scripts": {
