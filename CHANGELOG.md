@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.2.8
+
+### Patch Changes
+
+- 25f5487: Removed index.js, much clearer
+
 ## 0.2.7
 
 ### Patch Changes
