@@ -4,11 +4,14 @@ import { readFileSync } from 'fs';
 
 const PagefindConfigSchema = v.object({
 	site: v.string(),
-	vite_plugin_pagefind: v.object({
-		assets_dir: v.optional(v.string(), 'public'),
-		build_command: v.optional(v.string(), 'npm run build'),
-		dev_strategy: v.optional(v.string(), 'lazy')
-	})
+	vite_plugin_pagefind: v.optional(
+		v.object({
+			assets_dir: v.optional(v.string(), 'public'),
+			build_command: v.optional(v.string(), 'npm run build'),
+			dev_strategy: v.optional(v.string(), 'lazy')
+		}),
+		{}
+	)
 });
 
 export function get_pagefind_config(cwd: string) {
