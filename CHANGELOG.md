@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.2.3
+
+### Patch Changes
+
+-   fe3cb74: Better logs
+
 ## 0.2.2
 
 ### Patch Changes
