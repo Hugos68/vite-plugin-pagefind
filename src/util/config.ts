@@ -5,9 +5,9 @@ import { readFileSync } from 'fs';
 const PagefindConfigSchema = v.object({
 	site: v.string(),
 	vite_plugin_pagefind: v.object({
-		assets_dir: v.string(),
-		build_command: v.string(),
-		dev_strategy: v.string()
+		assets_dir: v.optional(v.string(), 'public'),
+		build_command: v.optional(v.string(), 'npm run build'),
+		dev_strategy: v.optional(v.string(), 'lazy')
 	})
 });
 

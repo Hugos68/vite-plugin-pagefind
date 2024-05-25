@@ -57,11 +57,25 @@ Note: If your framework does not have a `vite.config` checkout the [examples](#e
 }
 ```
 
+Note: `vite-plugin-pagefind` currently only supports `.json` files, more will be supported in the future.
+
 ## Config
+
+### site
+
+The directory where your build output lives, this is required for both pagefind and this plugin.
 
 ### assets_dir
 
 The directory where the static assets are located relative to the project's root as specified in the vite config.
+
+_default_: 'public'
+
+### build_command
+
+The command to build and index the project.
+
+_default_: 'npm run build'
 
 ### dev_strategy
 
@@ -70,9 +84,17 @@ The indexing strategy used during development:
 -   "eager": Build and index the app every time the development server starts
 -   "lazy": Build and index the app only if the pagefind bundle isn't present already
 
-### build_command
+_default_: 'lazy'
 
-The command to build and index the project.
+## Types
+
+Apart from the plugin, this package also exposes [the types from pagefind](https://github.com/CloudCannon/pagefind/blob/production-docs/pagefind_web_js/types/index.d.ts) as well as extending them by providing an additional `Pagefind` type:
+
+```ts
+import type { Pagefind } from 'vite-plugin-pagefind/types';
+
+const pagefind: Pagefind = await import('/pagefind/pagefind.js');
+```
 
 ## Examples
 
