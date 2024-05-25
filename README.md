@@ -25,16 +25,10 @@ pnpm add -D pagefind vite-plugin-pagefind
 
 ```ts
 import { defineConfig } from 'vite';
-import { pagefind, type Config } from 'vite-plugin-pagefind';
-
-const config: Config = {
-	assetsDir: '...',
-	buildDir: '...',
-	buildScript: '...'
-};
+import pagefind from 'vite-plugin-pagefind';
 
 export default defineConfig({
-	plugins: [pagefind(config)]
+	plugins: [pagefind()]
 });
 ```
 
@@ -45,36 +39,40 @@ Note: If your framework does not have a `vite.config` checkout the [examples](#e
 ```json
 {
 	"scripts": {
-		"build": "vite build && pagefind --site <BUILD_DIR>"
+		"build": "vite build && pagefind"
 	}
 }
 ```
 
-Note: Replace `<BUILD_DIR>` with your build directory.
+3. Add the `pagefind.json` config to your project:
+
+```json
+{
+	"site": "<BUILD_DIR>",
+	"vite_plugin": {
+		"assets_dir": "<ASSETS_DIR>",
+		"build_command": "BUILD_COMMAND",
+		"dev_strategy": "DEV_STRATEGY"
+	}
+}
+```
 
 ## Config
 
-### assetsDir
+### assets_dir
 
 The directory where the static assets are located relative to the project's root as specified in the vite config.
 
-Example: `assetsDir: 'public'` results in: `public/pagefind/pagefind.js`
+### dev_strategy
 
-_default:_ 'public'
+The indexing strategy used during development:
 
-### buildDir
+-   "eager": Build and index the app every time the development server starts
+-   "lazy": Build and index the app only if the pagefind bundle isn't present already
 
-The directory where the build output is located relative to the project's root as specified in the vite config.
+### build_command
 
-Example: `buildDir: 'dist'` results in: `dist/pagefind/pagefind.js`
-
-_default:_ 'dist'
-
-### buildScript
-
-The npm script to run to build and index the project.
-
-_default:_ 'build'
+The command to build and index the project.
 
 ## Examples
 
@@ -85,14 +83,6 @@ The setup for individual frameworks can differ (For example Astro, which has it'
 -   [SvelteKit](examples/sveltekit/)
 
 Don't see your framework? Consider adding it through a contribution!
-
-## Types
-
-Besides the plugin, this package also exposes [the types from pagefind](https://github.com/CloudCannon/pagefind/blob/production-docs/pagefind_web_js/types/index.d.ts) as well as extending them by providing an additional `Pagefind` type:
-
-```ts
-const pagefind: Pagefind = await import('/pagefind/pagefind.js');
-```
 
 ## Pagefind
 
