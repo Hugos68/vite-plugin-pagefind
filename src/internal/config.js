@@ -8,7 +8,7 @@ const PagefindConfigSchema = v.object({
 		v.object({
 			assets_dir: v.optional(v.string(), "public"),
 			build_command: v.optional(v.string(), "npm run build"),
-			dev_strategy: v.optional(v.string(), "lazy"),
+			dev_strategy: v.optional(v.picklist(["eager", "lazy"]), "lazy"),
 		}),
 		{},
 	),
