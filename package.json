@@ -1,7 +1,7 @@
 {
 	"name": "vite-plugin-pagefind",
 	"description": "A Vite plugin for easily integrating pagefind into Vite based projects.",
-	"version": "0.2.8",
+	"version": "0.2.9",
 	"license": "MIT",
 	"author": {
 		"name": "Hugo Korte",
@@ -12,11 +12,17 @@
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
 	"homepage": "https://github.com/Hugos68/vite-plugin-pagefind#vite-plugin-pagefind",
-	"keywords": ["vite", "vite-plugin", "pagefind"],
+	"keywords": [
+		"vite",
+		"vite-plugin",
+		"pagefind"
+	],
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"main": "./dist/plugins/pagefind.js",
 	"exports": {
 		".": {

@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.2.9
+
+### Patch Changes
+
+- f6e01b7: fix: correctly switch from `PluginOption` to `Plugin` as the return type.
+
 ## 0.2.8
 
 ### Patch Changes
