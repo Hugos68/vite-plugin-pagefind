@@ -2,7 +2,7 @@ import { PACKAGE_NAME } from "../internal/constants.js";
 
 /**
  * Vite plugin to allow building websites with Pagefind.
- * @returns {import('vite').PluginOption}
+ * @returns {import('vite').Plugin}
  */
 export default function build() {
 	return {

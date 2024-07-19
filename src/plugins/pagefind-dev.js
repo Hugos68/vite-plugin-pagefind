@@ -10,7 +10,7 @@ const exec = promisify(exec_callback);
 
 /**
  * Vite plugin to allow developing websites with Pagefind.
- * @returns {import('vite').PluginOption}
+ * @returns {import('vite').Plugin}
  */
 export default function dev() {
 	return {
