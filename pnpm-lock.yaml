@@ -14,6 +14,9 @@ importers:
       valibot:
         specifier: 0.31.0-rc.4
         version: 0.31.0-rc.4
+      vite:
+        specifier: ^5.0.0
+        version: 5.2.11(@types/node@20.12.12)
     devDependencies:
       '@biomejs/biome':
         specifier: 1.7.3
@@ -27,9 +30,6 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.4.5
-      vite:
-        specifier: ^5.0.12
-        version: 5.2.11(@types/node@20.12.12)
 
   examples/sveltekit:
     devDependencies:
