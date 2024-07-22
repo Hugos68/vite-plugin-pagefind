@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 0.2.10
+
+### Patch Changes
+
+- f6dd0d4: fix: Move Vite to peer deps
+
 ## 0.2.9
 
 ### Patch Changes
