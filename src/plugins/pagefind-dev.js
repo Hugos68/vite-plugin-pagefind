@@ -18,11 +18,14 @@ export default function dev() {
 		apply: "serve",
 		enforce: "post",
 		async config() {
+			const cwd = process.cwd();
+			const pagefind_config = await get_pagefind_config(cwd);
+			const pagefind_url = pagefind_config.pagefind_url;
 			return {
-				assetsInclude: "**/pagefind.js",
+				assetsInclude: ["**/pagefind.js", "**/pagefind-highlight.js"],
 				build: {
 					rollupOptions: {
-						external: "/pagefind/pagefind.js",
+						external: [`/${pagefind_url}/pagefind.js`, `/${pagefind_url}/pagefind-highlight.js`],
 					},
 				},
 			};

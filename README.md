@@ -77,6 +77,12 @@ The command to build and index the project.
 
 _default_: 'npm run build'
 
+### pagefind_url
+
+The URL you use to import the pagefind script on your site. For example, if you use `/pagefind/pagefind.js`, the `pagefind_url` is `pagefind`. If you use `/search/static/pagefind/pagefind.js`, the `pagefind_url` is `search/static/pagefind`
+
+_default_: 'pagefind'
+
 ### dev_strategy
 
 The indexing strategy used during development:
@@ -98,8 +104,8 @@ const pagefind: Pagefind = await import("/pagefind/pagefind.js");
 
 ## Pagefind
 
-For further questions regarding Pagefind itself you can refer to [the offical docs](https://pagefind.app/).
+For further questions regarding Pagefind itself you can refer to [the official docs](https://pagefind.app/).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.

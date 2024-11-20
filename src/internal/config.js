@@ -8,6 +8,7 @@ const PagefindConfigSchema = v.object({
 		v.object({
 			assets_dir: v.optional(v.string(), "public"),
 			build_command: v.optional(v.string(), "npm run build"),
+			pagefind_url: v.optional(v.string(), "pagefind"),
 			dev_strategy: v.optional(v.picklist(["eager", "lazy"]), "lazy"),
 		}),
 		{},
@@ -25,5 +26,7 @@ export async function get_pagefind_config(cwd) {
 		"utf-8",
 	);
 	const pagefind_parsed = JSON.parse(pagefind_raw);
-	return v.parse(PagefindConfigSchema, pagefind_parsed);
+	const config = v.parse(PagefindConfigSchema, pagefind_parsed);
+	config.pagefind_url = config.pagefind_url.replace(/^\/+|\/+$/g, "");
+	return config;
 }

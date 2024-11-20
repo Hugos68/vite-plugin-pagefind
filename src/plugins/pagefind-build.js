@@ -1,3 +1,4 @@
+import { get_pagefind_config } from "../internal/config.js";
 import { PACKAGE_NAME } from "../internal/constants.js";
 
 /**
@@ -8,11 +9,14 @@ export default function build() {
 	return {
 		name: `${PACKAGE_NAME}-build`,
 		apply: "build",
-		config() {
+		async config() {
+			const cwd = process.cwd();
+			const pagefind_config = await get_pagefind_config(cwd);
+			const pagefind_url = pagefind_config.pagefind_url;
 			return {
 				build: {
 					rollupOptions: {
-						external: "/pagefind/pagefind.js",
+						external: [`/${pagefind_url}/pagefind.js`, `/${pagefind_url}/pagefind-highlight.js`],
 					},
 				},
 			};
