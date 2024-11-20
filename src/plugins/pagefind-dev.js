@@ -20,7 +20,7 @@ export default function dev() {
 		async config() {
 			const cwd = process.cwd();
 			const pagefind_config = await get_pagefind_config(cwd);
-			const pagefind_url = pagefind_config.pagefind_url;
+			const pagefind_url = pagefind_config.vite_plugin_pagefind.pagefind_url;
 			return {
 				assetsInclude: ["**/pagefind.js", "**/pagefind-highlight.js"],
 				build: {

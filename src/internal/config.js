@@ -27,6 +27,10 @@ export async function get_pagefind_config(cwd) {
 	);
 	const pagefind_parsed = JSON.parse(pagefind_raw);
 	const config = v.parse(PagefindConfigSchema, pagefind_parsed);
-	config.pagefind_url = config.pagefind_url.replace(/^\/+|\/+$/g, "");
+	const pagefind_url = config.vite_plugin_pagefind.pagefind_url;
+	config.vite_plugin_pagefind.pagefind_url = pagefind_url.replace(
+		/^\/+|\/+$/g,
+		"",
+	);
 	return config;
 }
