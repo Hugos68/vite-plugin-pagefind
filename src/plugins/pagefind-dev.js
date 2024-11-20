@@ -25,7 +25,10 @@ export default function dev() {
 				assetsInclude: ["**/pagefind.js", "**/pagefind-highlight.js"],
 				build: {
 					rollupOptions: {
-						external: [`/${pagefind_url}/pagefind.js`, `/${pagefind_url}/pagefind-highlight.js`],
+						external: [
+							`/${pagefind_url}/pagefind.js`,
+							`/${pagefind_url}/pagefind-highlight.js`,
+						],
 					},
 				},
 			};

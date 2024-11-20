@@ -16,7 +16,10 @@ export default function build() {
 			return {
 				build: {
 					rollupOptions: {
-						external: [`/${pagefind_url}/pagefind.js`, `/${pagefind_url}/pagefind-highlight.js`],
+						external: [
+							`/${pagefind_url}/pagefind.js`,
+							`/${pagefind_url}/pagefind-highlight.js`,
+						],
 					},
 				},
 			};
