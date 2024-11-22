@@ -77,9 +77,9 @@ The command to build and index the project.
 
 _default_: 'npm run build'
 
-### pagefind_url
+### pagefind_dir
 
-The URL you use to import the pagefind script on your site. For example, if you use `/pagefind/pagefind.js`, the `pagefind_url` is `pagefind`. If you use `/search/static/pagefind/pagefind.js`, the `pagefind_url` is `search/static/pagefind`
+The URL directory you use to import the pagefind script on your site. For example, if you use `/pagefind/pagefind.js`, the `pagefind_dir` is `pagefind`. If you use `/search/static/pagefind/pagefind.js`, the `pagefind_dir` is `search/static/pagefind`.
 
 _default_: 'pagefind'
 

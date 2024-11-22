@@ -12,13 +12,13 @@ export default function build() {
 		async config() {
 			const cwd = process.cwd();
 			const pagefind_config = await get_pagefind_config(cwd);
-			const pagefind_url = pagefind_config.vite_plugin_pagefind.pagefind_url;
+			const pagefind_dir = pagefind_config.vite_plugin_pagefind.pagefind_dir;
 			return {
 				build: {
 					rollupOptions: {
 						external: [
-							`/${pagefind_url}/pagefind.js`,
-							`/${pagefind_url}/pagefind-highlight.js`,
+							`/${pagefind_dir}/pagefind.js`,
+							`/${pagefind_dir}/pagefind-highlight.js`,
 						],
 					},
 				},
