@@ -4,8 +4,8 @@ A Vite plugin for easily integrating pagefind into Vite based projects.
 
 ## Features
 
--   Ensures pagefind is present during development.
--   Ensures pagefind can be safely used through dynamic imports in conjunction with Vite.
+- Ensures pagefind is present during development.
+- Ensures pagefind can be safely used through dynamic imports in conjunction with Vite.
 
 ## Why?
 
@@ -32,6 +32,25 @@ export default defineConfig({
 });
 ```
 
+You can pass the options to the plugin directly in your Vite configuration:
+
+```ts
+import { defineConfig } from "vite";
+import pagefind from "vite-plugin-pagefind";
+
+export default defineConfig({
+	plugins: [
+		pagefind({
+			site: "<BUILD_DIR>",
+			assets_dir: "<ASSETS_DIR>",
+			pagefind_dir: "<PAGEFIND_DIR>",
+			build_command: "<BUILD_COMMAND>",
+			dev_strategy: "<DEV_STRATEGY>",
+		}),
+	],
+});
+```
+
 Note: If your framework does not have a `vite.config` consider consulting the framework documentation to see how to add a Vite plugin.
 
 2. Add the post build command to your `package.json`:
@@ -44,18 +63,21 @@ Note: If your framework does not have a `vite.config` consider consulting the fr
 }
 ```
 
-3. Add the `pagefind.json` config to your project:
+3. If you didn't pass the configuration options to the plugin, you can use the `pagefind.json` file to configure the plugin, as shown:
 
 ```json
 {
 	"site": "<BUILD_DIR>",
 	"vite_plugin_pagefind": {
 		"assets_dir": "<ASSETS_DIR>",
+		"pagefind_dir": "<PAGEFIND_DIR>",
 		"build_command": "<BUILD_COMMAND>",
 		"dev_strategy": "<DEV_STRATEGY>"
 	}
 }
 ```
+
+If for some reason you decide to define your configuration in both the file and the Vite configuration, the file will take precedence over the inline Vite configuration.
 
 Note: `vite-plugin-pagefind` currently only supports `.json` files, more are planned be supported in the future.
 
@@ -67,9 +89,15 @@ The directory where your build output lives, this is required for both pagefind 
 
 ### assets_dir
 
-The directory where the static assets are located relative to the project's root as specified in the vite config.
+The directory where the static assets are located relative to the project's root as specified in the Vite config.
 
 _default_: 'public'
+
+### pagefind_dir
+
+The directory part of the URL you use to import the pagefind script on your site. For example, if you use `/pagefind/pagefind.js`, the `pagefind_dir` is `pagefind`. If you use `/search/static/pagefind/pagefind.js`, the `pagefind_dir` is `search/static/pagefind`.
+
+_default_: 'pagefind'
 
 ### build_command
 
@@ -81,8 +109,8 @@ _default_: 'npm run build'
 
 The indexing strategy used during development:
 
--   "eager": Build and index the app every time the development server starts
--   "lazy": Build and index the app only if the pagefind bundle isn't present already
+- "eager": Build and index the app every time the development server starts
+- "lazy": Build and index the app only if the pagefind bundle isn't present already
 
 _default_: 'lazy'
 
@@ -98,8 +126,8 @@ const pagefind: Pagefind = await import("/pagefind/pagefind.js");
 
 ## Pagefind
 
-For further questions regarding Pagefind itself you can refer to [the offical docs](https://pagefind.app/).
+For further questions regarding Pagefind itself you can refer to [the official docs](https://pagefind.app/).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
