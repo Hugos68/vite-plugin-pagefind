@@ -12,17 +12,11 @@
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
 	"homepage": "https://github.com/Hugos68/vite-plugin-pagefind#vite-plugin-pagefind",
-	"keywords": [
-		"vite",
-		"vite-plugin",
-		"pagefind"
-	],
+	"keywords": ["vite", "vite-plugin", "pagefind"],
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"main": "./dist/plugins/pagefind.js",
 	"exports": {
 		".": {
@@ -46,13 +40,13 @@
 		"valibot": "0.31.0-rc.4"
 	},
 	"peerDependencies": {
-		"vite": "^5.0.0"
+		"vite": "^6.0.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.7.3",
-		"@changesets/cli": "^2.27.3",
-		"@types/node": "^20.12.12",
-		"typescript": "^5.3.3"
+		"@changesets/cli": "^2.27.10",
+		"@types/node": "^20.17.9",
+		"typescript": "^5.7.2"
 	},
 	"type": "module"
 }
