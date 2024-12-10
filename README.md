@@ -51,6 +51,8 @@ export default defineConfig({
 });
 ```
 
+Note: If you decide to use an inline config, you would still need to add the `--site` flag to your `pagefind` command.
+
 Note: If your framework does not have a `vite.config` consider consulting the framework documentation to see how to add a Vite plugin.
 
 2. Add the post build command to your `package.json`:
