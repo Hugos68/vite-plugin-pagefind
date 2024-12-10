@@ -1,5 +1,16 @@
 # vite-plugin-pagefind
 
+## 0.3.0
+
+### Minor Changes
+
+- ebc03b8: Adds support for inline configuration.
+- ebc03b8: Adds `pagefind_dir` option to configure the pagefind directory (rather than hardcoded to `/pagefind`).
+
+### Patch Changes
+
+- 2fe4aaf: Update peerDependency `vite`.
+
 ## 0.2.10
 
 ### Patch Changes
