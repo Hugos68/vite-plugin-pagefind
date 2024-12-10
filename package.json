@@ -35,11 +35,8 @@
 		}
 	},
 	"scripts": {
-		"dev": "tsc -w",
 		"build": "tsc",
-		"check": "biome check . --apply",
-		"ci:check": "biome check .",
-		"release": "pnpm build && changeset publish"
+		"format": "biome format "
 	},
 	"dependencies": {
 		"colorette": "^2.0.20",
@@ -52,7 +49,8 @@
 		"@biomejs/biome": "1.7.3",
 		"@changesets/cli": "^2.27.10",
 		"@types/node": "^20.17.9",
-		"typescript": "^5.7.2"
+		"typescript": "^5.7.2",
+		"unbuild": "^2.0.0"
 	},
 	"type": "module"
 }
