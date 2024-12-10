@@ -2,9 +2,11 @@ import { PACKAGE_NAME } from "../internal/constants.js";
 
 /**
  * Vite plugin to allow building websites with Pagefind.
+ * @param {import("../internal/config.js").PagefindPluginConfig} config
  * @returns {import('vite').Plugin}
  */
-export default function build() {
+export default function build(config) {
+	const pagefind_dir = config.pagefind_dir;
 	return {
 		name: `${PACKAGE_NAME}-build`,
 		apply: "build",
@@ -12,7 +14,10 @@ export default function build() {
 			return {
 				build: {
 					rollupOptions: {
-						external: "/pagefind/pagefind.js",
+						external: [
+							`/${pagefind_dir}/pagefind.js`,
+							`/${pagefind_dir}/pagefind-highlight.js`,
+						],
 					},
 				},
 			};

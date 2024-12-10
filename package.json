@@ -12,17 +12,11 @@
 		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
 	},
 	"homepage": "https://github.com/Hugos68/vite-plugin-pagefind#vite-plugin-pagefind",
-	"keywords": [
-		"vite",
-		"vite-plugin",
-		"pagefind"
-	],
+	"keywords": ["vite", "vite-plugin", "pagefind"],
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"main": "./dist/plugins/pagefind.js",
 	"exports": {
 		".": {
