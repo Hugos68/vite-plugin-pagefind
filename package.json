@@ -6,25 +6,26 @@
 		"access": "public"
 	},
 	"files": ["dist"],
-	"types": "./dist/plugins/pagefind.d.ts",
+	"types": "./dist/types.d.ts",
 	"exports": {
 		".": {
-			"types": "./dist/plugins/pagefind.d.ts",
-			"import": "./dist/plugins/pagefind.js"
+			"import": "./dist/index.mjs",
+			"types": "./dist/index.d.ts"
 		},
 		"./types": {
-			"types": "./dist/types/pagefind.d.ts",
-			"import": "./dist/types/pagefind.js"
+			"import": "./dist/types.mjs",
+			"types": "./dist/types.d.ts"
 		}
 	},
 	"scripts": {
 		"build": "unbuild",
 		"build:watch": "unbuild --watch",
-		"check": "biome check --vcs-use-ignore-file=true",
-		"check:fix": "biome check --write --vcs-use-ignore-file=true"
+		"check": "biome check",
+		"check:fix": "biome check --write"
 	},
 	"dependencies": {
-		"colorette": "^2.0.20"
+		"colorette": "^2.0.20",
+		"package-manager-detector": "^0.2.8"
 	},
 	"peerDependencies": {
 		"vite": "^6.0.0"

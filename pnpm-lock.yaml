@@ -11,6 +11,9 @@ importers:
       colorette:
         specifier: ^2.0.20
         version: 2.0.20
+      package-manager-detector:
+        specifier: ^0.2.8
+        version: 0.2.8
       vite:
         specifier: ^6.0.0
         version: 6.0.3(@types/node@22.10.7)(jiti@2.4.2)

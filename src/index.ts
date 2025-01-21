@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { cpSync } from "node:fs";
 import { resolve } from "node:path";
 import { blue } from "colorette";
+import { detectSync, resolveCommand } from "package-manager-detector";
 import type { Plugin } from "vite";
 
 interface PagefindOptions {
@@ -71,7 +72,17 @@ function pagefindDevelop(options: PagefindDevelopOptions) {
 
 			function build() {
 				log(`Building site using "${buildScript}"...`);
-				execSync(buildScript, {
+				const packageManager = detectSync({ cwd: config.root });
+				if (!packageManager) {
+					return;
+				}
+				const resolvedCommand = resolveCommand(packageManager.agent, "run", [
+					buildScript,
+				]);
+				if (!resolvedCommand) {
+					return;
+				}
+				execSync(resolvedCommand.command, {
 					cwd: config.root,
 				});
 			}
