@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { cpSync } from "node:fs";
+import { cpSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { blue } from "colorette";
 import { detectSync, resolveCommand } from "package-manager-detector";
@@ -100,16 +100,10 @@ function pagefindDevelop(options: PagefindDevelopOptions) {
 
 			switch (developStrategy) {
 				case "lazy": {
-					const bundleInsideAssets = execSync(
-						resolve(absoluteAssetsDirectory, bundleDirectory),
-					);
-					if (bundleInsideAssets) {
+					if (existsSync(resolve(absoluteAssetsDirectory, bundleDirectory))) {
 						return;
 					}
-					const bundleInsideOutput = execSync(
-						resolve(absoluteOutputDirectory, bundleDirectory),
-					);
-					if (bundleInsideOutput) {
+					if (existsSync(resolve(absoluteOutputDirectory, bundleDirectory))) {
 						copyBundle();
 						return;
 					}
