@@ -146,5 +146,32 @@ describe("pagefindDevelop", () => {
 				cwd: process.cwd(),
 			});
 		});
+		it("builds and copies the bundle with custom command", () => {
+			mocks["package-manager-detector"].detectSync.mockReturnValue({
+				agent: "npm",
+			});
+			mocks["package-manager-detector"].resolveCommand.mockImplementationOnce((agent: string, command: string, args: string[]) =>{
+				return {
+					command: `${agent} ${command}`,
+					args: args
+				}
+			});
+			const plugin = pagefindDevelop({
+				developStrategy: "eager",
+				buildScript: "build:custom",
+			});
+			// @ts-expect-error - We're not mocking a full Vite config
+			plugin.configResolved({
+				root: process.cwd(),
+			});
+			expect(cpSync).toHaveBeenCalledWith(
+				resolve(process.cwd(), "build", "pagefind"),
+				resolve(process.cwd(), "public", "pagefind"),
+				{ recursive: true },
+			);
+			expect(execSync).toHaveBeenCalledWith("npm run build:custom", {
+				cwd: process.cwd(),
+			});
+		});
 	});
 });
