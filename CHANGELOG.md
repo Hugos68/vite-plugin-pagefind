@@ -1,5 +1,15 @@
 # vite-plugin-pagefind
 
+## 1.0.0
+
+### Major Changes
+
+- 4bcd5f9: Feature: 1.0.0 🎉
+
+### Minor Changes
+
+- 4bcd5f9: Chore: Removed ability to use `pagefind.json`, config is now fully inline.
+
 ## 0.3.0
 
 ### Minor Changes
