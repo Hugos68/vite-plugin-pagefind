@@ -5,9 +5,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {

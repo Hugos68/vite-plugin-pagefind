@@ -71,7 +71,10 @@ describe("pagefindDevelop", () => {
 				args: ["build"],
 			});
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
-			plugin.configResolved({ root: process.cwd() });
+			// @ts-expect-error - We're not mocking a full Vite config
+			plugin.configResolved({
+				root: process.cwd(),
+			});
 			expect(cpSync).toHaveBeenCalledWith(
 				resolve(process.cwd(), "build", "pagefind"),
 				resolve(process.cwd(), "public", "pagefind"),
@@ -90,7 +93,10 @@ describe("pagefindDevelop", () => {
 				return false;
 			});
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
-			plugin.configResolved({ root: process.cwd() });
+			// @ts-expect-error - We're not mocking a full Vite config
+			plugin.configResolved({
+				root: process.cwd(),
+			});
 			expect(cpSync).toHaveBeenCalledWith(
 				resolve(process.cwd(), "build", "pagefind"),
 				resolve(process.cwd(), "public", "pagefind"),
@@ -109,7 +115,10 @@ describe("pagefindDevelop", () => {
 				return false;
 			});
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
-			plugin.configResolved({ root: process.cwd() });
+			// @ts-expect-error - We're not mocking a full Vite config
+			plugin.configResolved({
+				root: process.cwd(),
+			});
 			expect(execSync).not.toHaveBeenCalled();
 			expect(cpSync).not.toHaveBeenCalled();
 		});
@@ -124,13 +133,18 @@ describe("pagefindDevelop", () => {
 				args: ["build"],
 			});
 			const plugin = pagefindDevelop({ developStrategy: "eager" });
-			plugin.configResolved({ root: process.cwd() });
+			// @ts-expect-error - We're not mocking a full Vite config
+			plugin.configResolved({
+				root: process.cwd(),
+			});
 			expect(cpSync).toHaveBeenCalledWith(
 				resolve(process.cwd(), "build", "pagefind"),
 				resolve(process.cwd(), "public", "pagefind"),
 				{ recursive: true },
 			);
-			expect(execSync).toHaveBeenCalled();
+			expect(execSync).toHaveBeenCalledWith("npm run build", {
+				cwd: process.cwd(),
+			});
 		});
 	});
 });
