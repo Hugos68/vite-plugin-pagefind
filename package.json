@@ -6,13 +6,15 @@
 		"access": "public"
 	},
 	"files": ["dist"],
-	"types": "./dist/types.d.ts",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
+			"require": "./dist/index.cjs",
 			"import": "./dist/index.mjs",
 			"types": "./dist/index.d.ts"
 		},
 		"./types": {
+			"require": "./dist/types.cjs",
 			"import": "./dist/types.mjs",
 			"types": "./dist/types.d.ts"
 		}
@@ -21,7 +23,8 @@
 		"build": "unbuild",
 		"build:watch": "unbuild --watch",
 		"check": "biome check",
-		"check:fix": "biome check --write"
+		"check:fix": "biome check --write",
+		"prepack": "unbuild"
 	},
 	"dependencies": {
 		"colorette": "^2.0.20",

@@ -5,6 +5,10 @@ const config = defineBuildConfig({
 	outDir: "dist",
 	clean: true,
 	declaration: true,
+	rollup: {
+		emitCJS: true,
+		inlineDependencies: true,
+	},
 });
 
 export default config;
