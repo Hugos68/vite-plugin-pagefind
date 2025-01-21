@@ -83,18 +83,10 @@ _default_: 'lazy'
 
 ## Types
 
-Aswell as the plugin, this package also exposes [the official Pagefind types](https://github.com/CloudCannon/pagefind/blob/production-docs/pagefind_web_js/types/index.d.ts):
+As well as the plugin, this package also exposes [the official Pagefind types](https://github.com/CloudCannon/pagefind/blob/production-docs/pagefind_web_js/types/index.d.ts):
 
 ```ts
 import type { Pagefind } from "vite-plugin-pagefind/types";
 
 const pagefind: Pagefind = await import("/pagefind/pagefind.js");
 ```
-
-## Pagefind
-
-For further questions regarding Pagefind itself you can refer to [their official docs](https://pagefind.app/).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
