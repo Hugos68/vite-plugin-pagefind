@@ -1,29 +1,12 @@
 {
 	"name": "vite-plugin-pagefind",
-	"description": "A Vite plugin for easily integrating pagefind into Vite based projects.",
 	"version": "0.3.0",
 	"license": "MIT",
-	"author": {
-		"name": "Hugo Korte",
-		"email": "hugokorteapple@gmail.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Hugos68/vite-plugin-pagefind"
-	},
-	"homepage": "https://github.com/Hugos68/vite-plugin-pagefind#vite-plugin-pagefind",
-	"keywords": [
-		"vite",
-		"vite-plugin",
-		"pagefind"
-	],
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": [
-		"dist"
-	],
-	"main": "./dist/plugins/pagefind.js",
+	"files": ["dist"],
+	"types": "./dist/plugins/pagefind.d.ts",
 	"exports": {
 		".": {
 			"types": "./dist/plugins/pagefind.d.ts",
@@ -35,22 +18,23 @@
 		}
 	},
 	"scripts": {
-		"build": "tsc",
-		"format": "biome format "
+		"build": "unbuild",
+		"build:watch": "unbuild --watch",
+		"check": "biome check --vcs-use-ignore-file=true",
+		"check:fix": "biome check --write --vcs-use-ignore-file=true"
 	},
 	"dependencies": {
-		"colorette": "^2.0.20",
-		"valibot": "0.31.0-rc.4"
+		"colorette": "^2.0.20"
 	},
 	"peerDependencies": {
 		"vite": "^6.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.7.3",
-		"@changesets/cli": "^2.27.10",
-		"@types/node": "^20.17.9",
-		"typescript": "^5.7.2",
-		"unbuild": "^2.0.0"
+		"@biomejs/biome": "1.9.4",
+		"@changesets/cli": "^2.27.11",
+		"@types/node": "^22.10.7",
+		"typescript": "^5.7.3",
+		"unbuild": "^3.3.1"
 	},
 	"type": "module"
 }

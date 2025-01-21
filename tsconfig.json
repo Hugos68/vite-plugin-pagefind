@@ -1,13 +1,18 @@
 {
 	"compilerOptions": {
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
-		"outDir": "dist",
-		"declaration": true,
-		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"target": "es2022",
 		"allowJs": true,
-		"checkJs": true,
-		"skipLibCheck": true
-	},
-	"include": ["./src"]
+		"resolveJsonModule": true,
+		"moduleDetection": "force",
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+		"strict": true,
+		"noEmit": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"module": "preserve",
+		"lib": ["es2022"]
+	}
 }
