@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.0.1
+
+### Patch Changes
+
+- 11c6972: Bugfix: Replace internal `execSync` with `existsSync` call.
+
 ## 1.0.0
 
 ### Major Changes
