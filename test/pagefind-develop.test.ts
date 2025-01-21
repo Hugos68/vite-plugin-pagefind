@@ -27,6 +27,10 @@ vi.mock("package-manager-detector", () => mocks["package-manager-detector"]);
 beforeEach(vi.restoreAllMocks);
 
 describe("pagefindDevelop", () => {
+	it("has `pagefind-develop` as name", () => {
+		const plugin = pagefindDevelop();
+		expect(plugin.name).toBe("pagefind-develop");
+	});
 	it("only applies to the serve phase", () => {
 		const plugin = pagefindDevelop();
 		expect(plugin.apply).toBe("serve");

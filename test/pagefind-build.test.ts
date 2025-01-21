@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest";
 import { pagefindBuild, pagefindDevelop } from "../src";
 
 describe("pagefindBuild", () => {
+	it("has `pagefind-build` as name", () => {
+		const plugin = pagefindBuild();
+		expect(plugin.name).toBe("pagefind-build");
+	});
 	it("only applies to the build phase", () => {
 		const plugin = pagefindBuild();
 		expect(plugin.apply).toBe("build");
