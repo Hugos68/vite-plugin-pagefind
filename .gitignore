@@ -1,7 +1,4 @@
-# Editors
-.vscode
 .idea
-
-# Artifacts
-node_modules
+.vscode
 dist
+node_modules
