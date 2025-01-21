@@ -20,11 +20,11 @@ function log(message: string) {
 	console.log(`${blue("[vite-plugin-pagefind]")} ${message}`);
 }
 
-function pagefind(options: PagefindOptions) {
+function pagefind(options: PagefindOptions = {}) {
 	return [pagefindBuild(options), pagefindDevelop(options)] satisfies Plugin[];
 }
 
-function pagefindBuild(options: PagefindBuildOptions) {
+function pagefindBuild(options: PagefindBuildOptions = {}) {
 	const bundleDirectory = options.bundleDirectory ?? "pagefind";
 	return {
 		name: "pagefind-build",
@@ -44,7 +44,7 @@ function pagefindBuild(options: PagefindBuildOptions) {
 	} satisfies Plugin;
 }
 
-function pagefindDevelop(options: PagefindDevelopOptions) {
+function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 	const outputDirectory = options.outputDirectory ?? "build";
 	const assetsDirectory = options.assetsDirectory ?? "public";
 	const bundleDirectory = options.bundleDirectory ?? "pagefind";
@@ -69,7 +69,6 @@ function pagefindDevelop(options: PagefindDevelopOptions) {
 		configResolved(config) {
 			const absoluteOutputDirectory = resolve(config.root, outputDirectory);
 			const absoluteAssetsDirectory = resolve(config.root, assetsDirectory);
-
 			function build() {
 				log(`Building site using "${buildScript}"...`);
 				const packageManager = detectSync({ cwd: config.root });
@@ -82,11 +81,13 @@ function pagefindDevelop(options: PagefindDevelopOptions) {
 				if (!resolvedCommand) {
 					return;
 				}
-				execSync(resolvedCommand.command, {
-					cwd: config.root,
-				});
+				execSync(
+					`${resolvedCommand.command} ${resolvedCommand.args.join(" ")}`,
+					{
+						cwd: config.root,
+					},
+				);
 			}
-
 			function copyBundle() {
 				log(`Copying bundle to "${assetsDirectory}"...`);
 				cpSync(
@@ -97,7 +98,6 @@ function pagefindDevelop(options: PagefindDevelopOptions) {
 					},
 				);
 			}
-
 			switch (developStrategy) {
 				case "lazy": {
 					if (existsSync(resolve(absoluteAssetsDirectory, bundleDirectory))) {
