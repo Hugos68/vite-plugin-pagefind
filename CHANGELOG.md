@@ -1,5 +1,12 @@
 # vite-plugin-pagefind
 
+## 1.0.2
+
+### Patch Changes
+
+- f7559fc: Bugfix: Fix issue where `build` script would not be ran.
+- f7559fc: Bugfix: Add default empty object to plugin options.
+
 ## 1.0.1
 
 ### Patch Changes
