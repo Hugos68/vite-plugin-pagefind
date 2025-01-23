@@ -6,55 +6,28 @@ on:
 jobs:
     check:
         runs-on: ubuntu-latest
-        strategy:
-          matrix:
-            node-version: [22]
         steps:
             - uses: actions/checkout@v4
-            - uses: pnpm/action-setup@v3
-              with:
-                  version: 10
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with:
-                  cache: "pnpm"
+            - uses: oven-sh/setup-bun@v2
             - name: Install dependencies
-              run: pnpm install
+              run: bun install
             - name: Run check
-              run: pnpm check
+              run: bun run check
     build:
         runs-on: ubuntu-latest
-        strategy:
-          matrix:
-            node-version: [22]
         steps:
             - uses: actions/checkout@v4
-            - uses: pnpm/action-setup@v3
-              with:
-                 version: 10
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with:
-                  cache: "pnpm"
+            - uses: oven-sh/setup-bun@v2
             - name: Install dependencies
-              run: pnpm install
-            - name: Build
-              run: pnpm build
+              run: bun install
+            - name: Run build
+              run: bun run build
     test:
         runs-on: ubuntu-latest
-        strategy:
-          matrix:
-            node-version: [22]
         steps:
-            - uses: actions/checkout@v4
-            - uses: pnpm/action-setup@v3
-              with:
-                  version: 10
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with:
-                  cache: "pnpm"
-            - name: Install dependencies
-              run: pnpm install
-            - name: Test
-              run: pnpm test
+          - uses: actions/checkout@v4
+          - uses: oven-sh/setup-bun@v2
+          - name: Install dependencies
+            run: bun install
+          - name: Run tests
+            run: bun run test
