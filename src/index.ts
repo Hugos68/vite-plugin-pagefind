@@ -70,7 +70,6 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 			const absoluteOutputDirectory = resolve(config.root, outputDirectory);
 			const absoluteAssetsDirectory = resolve(config.root, assetsDirectory);
 			function build() {
-				log(`Building site using "${buildScript}"...`);
 				const packageManager = detectSync({ cwd: config.root });
 				if (!packageManager) {
 					return;
@@ -81,12 +80,11 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 				if (!resolvedCommand) {
 					return;
 				}
-				execSync(
-					`${resolvedCommand.command} ${resolvedCommand.args.join(" ")}`,
-					{
-						cwd: config.root,
-					},
-				);
+				const command = `${resolvedCommand.command} ${resolvedCommand.args.join(" ")}`;
+				log(`Building site using "${command}"...`);
+				execSync(command, {
+					cwd: config.root,
+				});
 			}
 			function copyBundle() {
 				log(`Copying bundle to "${assetsDirectory}"...`);

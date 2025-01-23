@@ -150,12 +150,14 @@ describe("pagefindDevelop", () => {
 			mocks["package-manager-detector"].detectSync.mockReturnValue({
 				agent: "npm",
 			});
-			mocks["package-manager-detector"].resolveCommand.mockImplementationOnce((agent: string, command: string, args: string[]) =>{
-				return {
-					command: `${agent} ${command}`,
-					args: args
-				}
-			});
+			mocks["package-manager-detector"].resolveCommand.mockImplementationOnce(
+				(agent: string, command: string, args: string[]) => {
+					return {
+						command: `${agent} ${command}`,
+						args: args,
+					};
+				},
+			);
 			const plugin = pagefindDevelop({
 				developStrategy: "eager",
 				buildScript: "build:custom",
