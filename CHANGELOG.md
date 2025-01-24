@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.0.3
+
+### Patch Changes
+
+- 226fe52: Bugfix: The "Building with <script>..." now includes the full command as well as only logging when actually building.
+
 ## 1.0.2
 
 ### Patch Changes
