@@ -22,7 +22,6 @@ const cpSyncSpy = spyOn(fs, "cpSync");
 const execSyncSpy = spyOn(child_process, "execSync");
 
 afterEach(() => {
-	mock.restore();
 	cpSyncSpy.mockClear();
 	execSyncSpy.mockClear();
 });
