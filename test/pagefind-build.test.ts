@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { pagefindBuild, pagefindDevelop } from "../src";
+import { describe, expect, it } from "bun:test";
+import { pagefindBuild } from "../src";
 
 describe("pagefindBuild", () => {
 	it("has `pagefind-build` as name", () => {
@@ -26,7 +26,7 @@ describe("pagefindBuild", () => {
 		});
 	});
 	it("externalizes the pagefind bundle with custom bundle directory", () => {
-		const plugin = pagefindDevelop({ bundleDirectory: "custom" });
+		const plugin = pagefindBuild({ bundleDirectory: "custom" });
 		const config = plugin.config();
 		expect(config).toMatchObject({
 			build: {

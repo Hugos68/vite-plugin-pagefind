@@ -1,30 +1,31 @@
-import { execSync } from "node:child_process";
-import { cpSync } from "node:fs";
+import { afterEach, describe, expect, it, mock, spyOn } from "bun:test";
+import * as child_process from "node:child_process";
+import * as fs from "node:fs";
 import { resolve } from "node:path";
-import { beforeEach, describe, expect, it, vi } from "vitest";
 import { pagefindDevelop } from "../src";
 
-const mocks = vi.hoisted(() => {
-	return {
-		fs: {
-			existsSync: vi.fn(),
-			cpSync: vi.fn(),
-		},
-		child_process: {
-			execSync: vi.fn(),
-		},
-		"package-manager-detector": {
-			detectSync: vi.fn(),
-			resolveCommand: vi.fn(),
-		},
-	};
+mock.module("node:fs", () => ({
+	existsSync: mock(() => false),
+	cpSync: mock(() => {}),
+}));
+
+mock.module("node:child_process", () => ({
+	execSync: mock(() => {}),
+}));
+
+mock.module("package-manager-detector", () => ({
+	detectSync: mock(() => ({ agent: "npm" })),
+	resolveCommand: mock(() => ({ command: "npm run", args: ["build"] })),
+}));
+
+const cpSyncSpy = spyOn(fs, "cpSync");
+const execSyncSpy = spyOn(child_process, "execSync");
+
+afterEach(() => {
+	mock.restore();
+	cpSyncSpy.mockClear();
+	execSyncSpy.mockClear();
 });
-
-vi.mock("node:fs", () => mocks.fs);
-vi.mock("node:child_process", () => mocks.child_process);
-vi.mock("package-manager-detector", () => mocks["package-manager-detector"]);
-
-beforeEach(vi.restoreAllMocks);
 
 describe("pagefindDevelop", () => {
 	it("has `pagefind-develop` as name", () => {
@@ -60,120 +61,112 @@ describe("pagefindDevelop", () => {
 			},
 		});
 	});
-	describe("lazy strategy", () => {
-		it("builds and copies the bundle", () => {
-			mocks.fs.existsSync.mockReturnValue(false);
-			mocks["package-manager-detector"].detectSync.mockReturnValue({
-				agent: "npm",
-			});
-			mocks["package-manager-detector"].resolveCommand.mockReturnValue({
-				command: "npm run",
-				args: ["build"],
-			});
+	describe('"lazy" strategy', () => {
+		it("builds and copies the bundle when output and bundle are not present", () => {
+			mock.module("node:fs", () => ({
+				existsSync: mock(() => false),
+			}));
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
-			// @ts-expect-error - We're not mocking a full Vite config
+			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
 			plugin.configResolved({
 				root: process.cwd(),
 			});
-			expect(cpSync).toHaveBeenCalledWith(
-				resolve(process.cwd(), "build", "pagefind"),
-				resolve(process.cwd(), "public", "pagefind"),
-				{ recursive: true },
-			);
-			expect(execSync).toHaveBeenCalled();
+			expect(cpSyncSpy).toHaveBeenCalledTimes(1);
+			expect(cpSyncSpy.mock.calls).toEqual([
+				[
+					resolve(process.cwd(), "build", "pagefind"),
+					resolve(process.cwd(), "public", "pagefind"),
+					{ recursive: true },
+				],
+			]);
+			expect(execSyncSpy).toHaveBeenCalledTimes(1);
+			expect(execSyncSpy.mock.calls).toEqual([
+				["npm run build", { cwd: process.cwd() }],
+			]);
 		});
-		it("skips build and copies the bundle if the bundle is only present in output", () => {
-			mocks.fs.existsSync.mockImplementation((path) => {
-				if (path === resolve(process.cwd(), "public", "pagefind")) {
+		it("does not build and copies the bundle when output is present and bundle is not", () => {
+			mock.module("node:fs", () => ({
+				existsSync: mock((path) => {
+					if (path === resolve(process.cwd(), "public", "pagefind")) {
+						return false;
+					}
+					if (path === resolve(process.cwd(), "build", "pagefind")) {
+						return true;
+					}
 					return false;
-				}
-				if (path === resolve(process.cwd(), "build", "pagefind")) {
-					return true;
-				}
-				return false;
-			});
+				}),
+			}));
+
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
-			// @ts-expect-error - We're not mocking a full Vite config
+			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
 			plugin.configResolved({
 				root: process.cwd(),
 			});
-			expect(cpSync).toHaveBeenCalledWith(
-				resolve(process.cwd(), "build", "pagefind"),
-				resolve(process.cwd(), "public", "pagefind"),
-				{ recursive: true },
-			);
-			expect(execSync).not.toHaveBeenCalled();
+			expect(cpSyncSpy).toHaveBeenCalledTimes(1);
+			expect(cpSyncSpy.mock.calls).toEqual([
+				[
+					resolve(process.cwd(), "build", "pagefind"),
+					resolve(process.cwd(), "public", "pagefind"),
+					{ recursive: true },
+				],
+			]);
+			expect(execSyncSpy).toHaveBeenCalledTimes(0);
 		});
-		it("skips build and copy if bundle already present in assets", () => {
-			mocks.fs.existsSync.mockImplementation((path) => {
-				if (path === resolve(process.cwd(), "public", "pagefind")) {
-					return true;
-				}
-				if (path === resolve(process.cwd(), "build", "pagefind")) {
-					return false;
-				}
-				return false;
-			});
+		it("does not build nor copies the bundle when output and bundle are present", () => {
+			mock.module("node:fs", () => ({
+				existsSync: mock(() => true),
+			}));
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
-			// @ts-expect-error - We're not mocking a full Vite config
+			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
 			plugin.configResolved({
 				root: process.cwd(),
 			});
-			expect(execSync).not.toHaveBeenCalled();
-			expect(cpSync).not.toHaveBeenCalled();
+			expect(cpSyncSpy).toHaveBeenCalledTimes(0);
+			expect(execSyncSpy).toHaveBeenCalledTimes(0);
 		});
 	});
-	describe("eager strategy", () => {
-		it("builds and copies the bundle", () => {
-			mocks["package-manager-detector"].detectSync.mockReturnValue({
-				agent: "npm",
-			});
-			mocks["package-manager-detector"].resolveCommand.mockReturnValue({
-				command: "npm run",
-				args: ["build"],
-			});
+
+	describe('"eager" strategy', () => {
+		it("builds and copies the bundle when output and bundle are not present", () => {
 			const plugin = pagefindDevelop({ developStrategy: "eager" });
-			// @ts-expect-error - We're not mocking a full Vite config
+			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
 			plugin.configResolved({
 				root: process.cwd(),
 			});
-			expect(cpSync).toHaveBeenCalledWith(
-				resolve(process.cwd(), "build", "pagefind"),
-				resolve(process.cwd(), "public", "pagefind"),
-				{ recursive: true },
-			);
-			expect(execSync).toHaveBeenCalledWith("npm run build", {
-				cwd: process.cwd(),
-			});
+			expect(cpSyncSpy).toHaveBeenCalledTimes(1);
+			expect(cpSyncSpy.mock.calls).toEqual([
+				[
+					resolve(process.cwd(), "build", "pagefind"),
+					resolve(process.cwd(), "public", "pagefind"),
+					{ recursive: true },
+				],
+			]);
+			expect(execSyncSpy).toHaveBeenCalledTimes(1);
+			expect(execSyncSpy.mock.calls).toEqual([
+				["npm run build", { cwd: process.cwd() }],
+			]);
 		});
-		it("builds and copies the bundle with custom command", () => {
-			mocks["package-manager-detector"].detectSync.mockReturnValue({
-				agent: "npm",
-			});
-			mocks["package-manager-detector"].resolveCommand.mockImplementationOnce(
-				(agent: string, command: string, args: string[]) => {
-					return {
-						command: `${agent} ${command}`,
-						args: args,
-					};
-				},
-			);
-			const plugin = pagefindDevelop({
-				developStrategy: "eager",
-				buildScript: "build:custom",
-			});
-			// @ts-expect-error - We're not mocking a full Vite config
+		it("builds and copies bundle when output and bundle are present", () => {
+			mock.module("node:fs", () => ({
+				existsSync: mock(() => true),
+			}));
+			const plugin = pagefindDevelop({ developStrategy: "eager" });
+			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
 			plugin.configResolved({
 				root: process.cwd(),
 			});
-			expect(cpSync).toHaveBeenCalledWith(
-				resolve(process.cwd(), "build", "pagefind"),
-				resolve(process.cwd(), "public", "pagefind"),
-				{ recursive: true },
-			);
-			expect(execSync).toHaveBeenCalledWith("npm run build:custom", {
-				cwd: process.cwd(),
-			});
+			expect(cpSyncSpy).toHaveBeenCalledTimes(1);
+			expect(cpSyncSpy.mock.calls).toEqual([
+				[
+					resolve(process.cwd(), "build", "pagefind"),
+					resolve(process.cwd(), "public", "pagefind"),
+					{ recursive: true },
+				],
+			]);
+			expect(execSyncSpy).toHaveBeenCalledTimes(1);
+			expect(execSyncSpy.mock.calls).toEqual([
+				["npm run build", { cwd: process.cwd() }],
+			]);
 		});
 	});
 });

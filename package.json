@@ -22,8 +22,8 @@
 	"scripts": {
 		"build": "unbuild",
 		"build:watch": "unbuild --watch",
-		"test": "vitest run --silent",
-		"test:watch": "vitest run --silent --watch",
+		"test": "bun test",
+		"test:watch": "bun test --watch",
 		"check": "biome check",
 		"check:fix": "biome check --write",
 		"prepack": "unbuild"
