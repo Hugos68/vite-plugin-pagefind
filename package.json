@@ -40,8 +40,7 @@
 		"@changesets/cli": "^2.27.11",
 		"@types/node": "^22.10.7",
 		"typescript": "^5.7.3",
-		"unbuild": "^3.3.1",
-		"vitest": "^3.0.3"
+		"unbuild": "^3.3.1"
 	},
 	"type": "module"
 }
