@@ -81,10 +81,11 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 					return;
 				}
 				const command = `${resolvedCommand.command} ${resolvedCommand.args.join(" ")}`;
-				log(`Building site using "${command}"...`);
+				log(`Building with "${command}"...`);
 				execSync(command, {
 					cwd: config.root,
 				});
+				log(`Successfully build with "${command}."`);
 			}
 			function copyBundle() {
 				log(`Copying bundle to "${assetsDirectory}"...`);
@@ -95,6 +96,7 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 						recursive: true,
 					},
 				);
+				log(`Successfully copied bundle to "${assetsDirectory}."`);
 			}
 			switch (developStrategy) {
 				case "lazy": {
