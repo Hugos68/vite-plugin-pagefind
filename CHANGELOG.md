@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.0.5
+
+### Patch Changes
+
+- 412090f: Chore: README improvements.
+
 ## 1.0.4
 
 ### Patch Changes
