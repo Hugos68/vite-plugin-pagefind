@@ -5,9 +5,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
@@ -39,8 +37,8 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@changesets/cli": "^2.27.11",
-		"@types/node": "^22.10.7",
+		"@changesets/cli": "^2.27.12",
+		"@types/node": "^22.10.10",
 		"typescript": "^5.7.3",
 		"unbuild": "^3.3.1"
 	},
