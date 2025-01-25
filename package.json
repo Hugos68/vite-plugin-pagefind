@@ -1,11 +1,13 @@
 {
 	"name": "vite-plugin-pagefind",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"license": "MIT",
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
