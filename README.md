@@ -36,12 +36,12 @@ export default defineConfig({
 });
 ```
 
-2. Add the post build step to your `<OUTPUT_DIRECTORY>` in your `package.json`:
+2. Add the post build step of running `pagefind` in your `package.json`:
 
 ```json
 {
 	"scripts": {
-		"build": "vite build && pagefind --site \"<OUTPUT_DIRECTORY>\""
+		"<BUILD_SCRIPT>": "vite build && pagefind --site \"<OUTPUT_DIRECTORY>\""
 	}
 }
 ```
