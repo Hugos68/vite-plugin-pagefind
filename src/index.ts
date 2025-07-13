@@ -3,7 +3,7 @@ import { cpSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { blue } from "colorette";
 import { detectSync, resolveCommand } from "package-manager-detector";
-import type { Plugin, ResolvedConfig } from "vite";
+import type { Plugin } from "vite";
 
 interface PagefindOptions {
 	outputDirectory?: string;
@@ -20,11 +20,11 @@ function log(message: string) {
 	console.log(`${blue("[vite-plugin-pagefind]")} ${message}`);
 }
 
-function pagefind(options: PagefindOptions = {}) {
-	return [pagefindBuild(options), pagefindDevelop(options)] satisfies Plugin[];
+function pagefind(options: PagefindOptions = {}): Plugin[] {
+	return [pagefindBuild(options), pagefindDevelop(options)];
 }
 
-function pagefindBuild(options: PagefindBuildOptions = {}) {
+function pagefindBuild(options: PagefindBuildOptions = {}): Plugin {
 	const bundleDirectory = options.bundleDirectory ?? "pagefind";
 	return {
 		name: "pagefind-build",
@@ -44,7 +44,7 @@ function pagefindBuild(options: PagefindBuildOptions = {}) {
 	} satisfies Plugin;
 }
 
-function pagefindDevelop(options: PagefindDevelopOptions = {}) {
+function pagefindDevelop(options: PagefindDevelopOptions = {}): Plugin {
 	const outputDirectory = options.outputDirectory ?? "build";
 	const assetsDirectory = options.assetsDirectory ?? "public";
 	const bundleDirectory = options.bundleDirectory ?? "pagefind";
@@ -66,7 +66,7 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 				},
 			};
 		},
-		configResolved(config: ResolvedConfig) {
+		configResolved(config) {
 			const absoluteOutputDirectory = resolve(config.root, outputDirectory);
 			const absoluteAssetsDirectory = resolve(config.root, assetsDirectory);
 			function build() {
@@ -118,7 +118,7 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 				}
 			}
 		},
-	} satisfies Plugin;
+	};
 }
 
 export type { PagefindOptions, PagefindBuildOptions, PagefindDevelopOptions };
