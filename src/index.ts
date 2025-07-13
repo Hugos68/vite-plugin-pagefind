@@ -20,7 +20,7 @@ function log(message: string) {
 	console.log(`${blue("[vite-plugin-pagefind]")} ${message}`);
 }
 
-function pagefind(options: PagefindOptions = {}): Plugin[] {
+function pagefind(options: PagefindOptions = {}): Plugin {
 	return [pagefindBuild(options), pagefindDevelop(options)];
 }
 
@@ -41,7 +41,7 @@ function pagefindBuild(options: PagefindBuildOptions = {}): Plugin {
 				},
 			};
 		},
-	} satisfies Plugin;
+	};
 }
 
 function pagefindDevelop(options: PagefindDevelopOptions = {}): Plugin {
