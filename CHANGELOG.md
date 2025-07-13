@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.0.6
+
+### Patch Changes
+
+- b57be41: Update dependencies to the latest versions and fixed the resolved config type not matching Vite's.
+
 ## 1.0.5
 
 ### Patch Changes
