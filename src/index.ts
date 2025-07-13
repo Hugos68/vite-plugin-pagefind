@@ -3,7 +3,7 @@ import { cpSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { blue } from "colorette";
 import { detectSync, resolveCommand } from "package-manager-detector";
-import type { Plugin } from "vite";
+import type { Plugin, ResolvedConfig } from "vite";
 
 interface PagefindOptions {
 	outputDirectory?: string;
@@ -66,7 +66,7 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}) {
 				},
 			};
 		},
-		configResolved(config) {
+		configResolved(config: ResolvedConfig) {
 			const absoluteOutputDirectory = resolve(config.root, outputDirectory);
 			const absoluteAssetsDirectory = resolve(config.root, assetsDirectory);
 			function build() {
