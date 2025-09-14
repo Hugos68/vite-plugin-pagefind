@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.0.7
+
+### Patch Changes
+
+- 88d61db: fix: vite peerDependency range
+
 ## 1.0.6
 
 ### Patch Changes
