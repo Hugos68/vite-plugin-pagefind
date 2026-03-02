@@ -98,7 +98,7 @@ interface Pagefind {
 	options: (options: PagefindIndexOptions) => Promise<void>;
 	preload: (term: string, options?: PagefindIndexOptions) => Promise<void>;
 	search: (
-		term: string,
+		term: string | null,
 		options?: PagefindSearchOptions,
 	) => Promise<PagefindSearchResults>;
 }
