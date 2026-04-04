@@ -104,15 +104,15 @@ interface Pagefind {
 }
 
 export type {
+	Pagefind,
+	PagefindFilterCounts,
 	PagefindIndexOptions,
 	PagefindRankingWeights,
-	PagefindSearchOptions,
-	PagefindFilterCounts,
-	PagefindSearchResults,
-	PagefindSearchResult,
+	PagefindSearchAnchor,
 	PagefindSearchFragment,
+	PagefindSearchOptions,
+	PagefindSearchResult,
+	PagefindSearchResults,
 	PagefindSubResult,
 	PagefindWordLocation,
-	PagefindSearchAnchor,
-	Pagefind,
 };

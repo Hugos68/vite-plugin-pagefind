@@ -13,8 +13,11 @@ mock.module("node:child_process", () => ({
 	execSync: mock(() => {}),
 }));
 
-mock.module("package-manager-detector", () => ({
-	detectSync: mock(() => ({ agent: "npm" })),
+mock.module("package-manager-detector/detect", () => ({
+	detect: mock(async () => ({ agent: "npm" })),
+}));
+
+mock.module("package-manager-detector/commands", () => ({
 	resolveCommand: mock(() => ({ command: "npm run", args: ["build"] })),
 }));
 
@@ -60,14 +63,14 @@ describe("pagefindDevelop", () => {
 			},
 		});
 	});
-	describe('"lazy" strategy', () => {
-		it("builds and copies the bundle when output and bundle are not present", () => {
+	describe('"lazy" strategy', async () => {
+		it("builds and copies the bundle when output and bundle are not present", async () => {
 			mock.module("node:fs", () => ({
 				existsSync: mock(() => false),
 			}));
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
 			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
-			plugin.configResolved({
+			await plugin.configResolved({
 				root: process.cwd(),
 			});
 			expect(cpSyncSpy).toHaveBeenCalledTimes(1);
@@ -83,7 +86,7 @@ describe("pagefindDevelop", () => {
 				["npm run build", { cwd: process.cwd() }],
 			]);
 		});
-		it("does not build and copies the bundle when output is present and bundle is not", () => {
+		it("does not build and copies the bundle when output is present and bundle is not", async () => {
 			mock.module("node:fs", () => ({
 				existsSync: mock((path) => {
 					if (path === resolve(process.cwd(), "public", "pagefind")) {
@@ -98,7 +101,7 @@ describe("pagefindDevelop", () => {
 
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
 			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
-			plugin.configResolved({
+			await plugin.configResolved({
 				root: process.cwd(),
 			});
 			expect(cpSyncSpy).toHaveBeenCalledTimes(1);
@@ -111,13 +114,13 @@ describe("pagefindDevelop", () => {
 			]);
 			expect(execSyncSpy).toHaveBeenCalledTimes(0);
 		});
-		it("does not build nor copies the bundle when output and bundle are present", () => {
+		it("does not build nor copies the bundle when output and bundle are present", async () => {
 			mock.module("node:fs", () => ({
 				existsSync: mock(() => true),
 			}));
 			const plugin = pagefindDevelop({ developStrategy: "lazy" });
 			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
-			plugin.configResolved({
+			await plugin.configResolved({
 				root: process.cwd(),
 			});
 			expect(cpSyncSpy).toHaveBeenCalledTimes(0);
@@ -125,11 +128,11 @@ describe("pagefindDevelop", () => {
 		});
 	});
 
-	describe('"eager" strategy', () => {
-		it("builds and copies the bundle when output and bundle are not present", () => {
+	describe('"eager" strategy', async () => {
+		it("builds and copies the bundle when output and bundle are not present", async () => {
 			const plugin = pagefindDevelop({ developStrategy: "eager" });
 			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
-			plugin.configResolved({
+			await plugin.configResolved({
 				root: process.cwd(),
 			});
 			expect(cpSyncSpy).toHaveBeenCalledTimes(1);
@@ -145,13 +148,13 @@ describe("pagefindDevelop", () => {
 				["npm run build", { cwd: process.cwd() }],
 			]);
 		});
-		it("builds and copies bundle when output and bundle are present", () => {
+		it("builds and copies bundle when output and bundle are present", async () => {
 			mock.module("node:fs", () => ({
 				existsSync: mock(() => true),
 			}));
 			const plugin = pagefindDevelop({ developStrategy: "eager" });
 			// @ts-expect-error - The plugin only requires this bit of the Vite plugin
-			plugin.configResolved({
+			await plugin.configResolved({
 				root: process.cwd(),
 			});
 			expect(cpSyncSpy).toHaveBeenCalledTimes(1);

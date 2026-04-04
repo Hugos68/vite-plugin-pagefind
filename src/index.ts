@@ -2,7 +2,8 @@ import { execSync } from "node:child_process";
 import { cpSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { blue } from "colorette";
-import { detectSync, resolveCommand } from "package-manager-detector";
+import { resolveCommand } from "package-manager-detector/commands";
+import { detect } from "package-manager-detector/detect";
 import type { Plugin } from "vite";
 
 interface PagefindOptions {
@@ -66,11 +67,11 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}): Plugin {
 				},
 			};
 		},
-		configResolved(config) {
+		async configResolved(config) {
 			const absoluteOutputDirectory = resolve(config.root, outputDirectory);
 			const absoluteAssetsDirectory = resolve(config.root, assetsDirectory);
-			function build() {
-				const packageManager = detectSync({ cwd: config.root });
+			async function build() {
+				const packageManager = await detect({ cwd: config.root });
 				if (!packageManager) {
 					return;
 				}
@@ -121,6 +122,6 @@ function pagefindDevelop(options: PagefindDevelopOptions = {}): Plugin {
 	};
 }
 
-export type { PagefindOptions, PagefindBuildOptions, PagefindDevelopOptions };
+export type { PagefindBuildOptions, PagefindDevelopOptions, PagefindOptions };
 
 export { pagefind, pagefindBuild, pagefindDevelop };
