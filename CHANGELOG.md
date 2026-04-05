@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.0.9
+
+### Patch Changes
+
+- 6361102: task: dependency bump
+
 ## 1.0.8
 
 ### Patch Changes
