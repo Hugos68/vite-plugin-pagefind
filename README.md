@@ -24,15 +24,15 @@ import { defineConfig } from "vite";
 import { pagefind } from "vite-plugin-pagefind";
 
 export default defineConfig({
-	plugins: [
-		pagefind({
-			outputDirectory: "<OUTPUT_DIRECTORY>",
-			assetsDirectory: "<ASSETS_DIRECTORY>",
-			bundleDirectory: "<BUNDLE_DIRECTORY>",
-			buildScript: "<BUILD_SCRIPT>",
-			developStrategy: "<DEVELOP_STRATEGY>",
-		}),
-	],
+  plugins: [
+    pagefind({
+      outputDirectory: "<OUTPUT_DIRECTORY>",
+      assetsDirectory: "<ASSETS_DIRECTORY>",
+      bundleDirectory: "<BUNDLE_DIRECTORY>",
+      buildScript: "<BUILD_SCRIPT>",
+      developStrategy: "<DEVELOP_STRATEGY>",
+    }),
+  ],
 });
 ```
 
@@ -40,9 +40,9 @@ export default defineConfig({
 
 ```json
 {
-	"scripts": {
-		"<BUILD_SCRIPT>": "vite build && pagefind --site \"<OUTPUT_DIRECTORY>\""
-	}
+  "scripts": {
+    "<BUILD_SCRIPT>": "vite build && pagefind --site \"<OUTPUT_DIRECTORY>\""
+  }
 }
 ```
 
