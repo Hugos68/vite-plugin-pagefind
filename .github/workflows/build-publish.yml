@@ -24,3 +24,5 @@ jobs:
         with:
           title: "task: release"
           publish: pnpm changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
