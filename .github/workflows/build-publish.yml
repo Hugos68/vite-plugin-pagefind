@@ -23,3 +23,4 @@ jobs:
         uses: changesets/action@v1
         with:
           title: "task: release"
+          run: pnpm changeset publish
