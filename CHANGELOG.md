@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.1.0
+
+### Minor Changes
+
+- 57191b9: task: dep bump
+
 ## 1.0.10
 
 ### Patch Changes
