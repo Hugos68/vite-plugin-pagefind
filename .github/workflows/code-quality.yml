@@ -1,7 +1,11 @@
-name: CI
+name: Code Quality
 
 on:
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   format:
