@@ -1,10 +1,10 @@
 {
   "name": "vite-plugin-pagefind",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "repository": {
-		"type": "git",
-		"url": "git+https://github.com/Hugos68/vite-plugin-pagefind.git"
-	},
+    "type": "git",
+    "url": "git+https://github.com/Hugos68/vite-plugin-pagefind.git"
+  },
   "license": "MIT",
   "files": [
     "dist"
