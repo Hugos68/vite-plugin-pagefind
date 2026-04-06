@@ -4,6 +4,13 @@
 
 ### Minor Changes
 
+- 27d51ab: task: bump deps
+- f400f77: task: bump deps
+
+## 1.1.0
+
+### Minor Changes
+
 - 5ee3f21: task: bump deps
 
 ## 1.2.0
