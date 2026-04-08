@@ -1,11 +1,11 @@
 {
   "name": "vite-plugin-pagefind",
   "version": "1.1.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hugos68/vite-plugin-pagefind.git"
   },
-  "license": "MIT",
   "files": [
     "dist"
   ],
@@ -35,7 +35,8 @@
   },
   "dependencies": {
     "colorette": "^2.0.20",
-    "package-manager-detector": "^1.6.0"
+    "package-manager-detector": "^1.6.0",
+    "publint": "^0.3.18"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
