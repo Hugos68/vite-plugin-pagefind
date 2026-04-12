@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.1.1
+
+### Patch Changes
+
+- ac3c395: bugfix: emit types
+
 ## 1.1.0
 
 ### Minor Changes
