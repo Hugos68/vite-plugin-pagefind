@@ -1,5 +1,11 @@
 # vite-plugin-pagefind
 
+## 1.1.2
+
+### Patch Changes
+
+- e8cb78b: Updated the packages used to the latest version, except for TypeScript as some features are not supported in TypeScript 7.
+
 ## 1.1.1
 
 ### Patch Changes
